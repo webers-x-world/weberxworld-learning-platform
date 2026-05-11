@@ -550,7 +550,7 @@ window.submitReview = async function () {
             name: window.currentUser.displayName,
             email: window.currentUser.email,
             photo: window.currentUser.photoURL,
-            review: reviewText,
+            text: reviewText,
             rating: rating,
             course: course,
             createdAt: new Date()
@@ -626,98 +626,6 @@ window.loadReviews = async function () {
 }
 
 };
-
-
-// ═════════════════════ PUBLIC REVIEWS LOAD ═════════════════════
-
-async function loadPublicReviews() {
-
-  const reviewsGrid = document.getElementById("reviewsGrid");
-
-  if (!reviewsGrid) {
-    console.log("reviewsGrid not found");
-    return;
-  }
-
-  try {
-
-    console.log("Loading reviews...");
-
-    const snapshot = await window.getDocs(
-      window.collection(window.db, "reviews")
-    );
-
-    console.log("Total Reviews:", snapshot.size);
-
-    if (snapshot.empty) {
-
-      reviewsGrid.innerHTML = `
-        <div class="no-reviews">
-          No reviews yet.
-        </div>
-      `;
-
-      return;
-    }
-
-    let html = "";
-
-    snapshot.forEach((doc) => {
-
-      const r = doc.data();
-
-      const rating = parseInt(r.rating) || 0;
-
-      html += `
-        <div class="review-card reveal">
-
-          <div class="review-top">
-
-            <img src="${r.photo}" class="review-avatar">
-
-            <div>
-              <h4>${r.name}</h4>
-              <p>${r.course}</p>
-            </div>
-
-          </div>
-
-          <div class="review-stars">
-            ${"⭐".repeat(rating)}
-          </div>
-
-          <p class="review-text">
-            ${r.text}
-          </p>
-
-        </div>
-      `;
-
-    });
-
-    reviewsGrid.innerHTML = html;
-
-    console.log("Reviews Rendered ✅");
-
-  } catch (error) {
-
-    console.error("Review Load Error:", error);
-
-  }
-
-}
-
-
-// AUTO LOAD REVIEWS
-window.addEventListener("DOMContentLoaded", () => {
-
-  setTimeout(() => {
-
-    loadPublicReviews();
-
-  }, 2000);
-
-});
 
 // ═════════════════ PUBLIC REVIEWS ═════════════════
 
@@ -804,23 +712,73 @@ window.addEventListener('DOMContentLoaded', () => {
 
 });
 
-window.addEventListener('DOMContentLoaded', () => {
+// ═════════════════ CERTIFICATES ═════════════════
 
-    setTimeout(() => {
+async function loadCertificates() {
 
-        if(window.db && window.collection){
+    if (!window.currentUser) return;
 
-            loadPublicReviews();
+    const certGrid = document.getElementById("certificateGrid");
 
-        } else {
+    if (!certGrid) return;
 
-            console.log("Firebase not ready yet");
+    try {
 
+        const q = window.query(
+            window.collection(window.db, "certificates"),
+            window.where("email", "==", window.currentUser.email)
+        );
+
+        const snapshot = await window.getDocs(q);
+
+        if (snapshot.empty) {
+
+            certGrid.innerHTML = `
+                <div class="no-certificates">
+                    No Certificates Found
+                </div>
+            `;
+
+            return;
         }
 
-    }, 3000);
+        let html = '';
 
-});
+        snapshot.forEach(doc => {
+
+            const cert = doc.data();
+
+            html += `
+                <div class="certificate-card">
+
+                    <img 
+                        src="${cert.certificateURL}" 
+                        class="certificate-image"
+                    >
+
+                    <h3>${cert.course}</h3>
+
+                    <a 
+                        href="${cert.certificateURL}" 
+                        target="_blank"
+                        class="download-btn"
+                    >
+                        View Certificate
+                    </a>
+
+                </div>
+            `;
+        });
+
+        certGrid.innerHTML = html;
+
+    } catch (error) {
+
+        console.error("Certificate Error:", error);
+
+    }
+}
+
 /* ════════════════════════════════════════════════════════════════
    GOOGLE APPS SCRIPT — REFERENCE CODE
    Deploy this as a separate Google Apps Script Web App
