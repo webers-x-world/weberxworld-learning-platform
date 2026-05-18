@@ -7,731 +7,975 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Rajdhani:wght@300;400;500;600;700&family=Orbitron:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <!-- Lucide Icons CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lucide/0.263.1/lucide.min.js"></script>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
-  <!-- ═══════════════════════ LOADING SCREEN ═══════════════════════ -->
-  <div id="loadingScreen">
-    <div class="loader-content">
-      <div class="loader-logo-wrap">
-        <div class="loader-logo-ring"></div>
-        <div class="loader-logo-ring ring2"></div>
-        <img src="weber's-x-world.png" alt="Weber's X World Logo" class="loader-logo" id="loaderLogo" onerror="this.style.display='none'; document.getElementById('loaderFallback').style.display='flex';" />
-        <div class="loader-fallback" id="loaderFallback">WX</div>
+<!-- ═══════════════════ AMBIENT ORB BACKGROUNDS ═══════════════════ -->
+<div class="ambient-orbs">
+  <div class="orb orb1"></div>
+  <div class="orb orb2"></div>
+  <div class="orb orb3"></div>
+</div>
+
+<!-- ═══════════════════ LOADING SCREEN ═══════════════════ -->
+<div id="loadingScreen">
+  <div class="loader-content">
+    <div class="loader-logo-wrap">
+      <div class="loader-logo-ring"></div>
+      <div class="loader-logo-ring ring2"></div>
+      <div class="loader-logo-ring ring3"></div>
+      <img src="weber's-x-world.png" alt="WXW" class="loader-logo" onerror="this.style.display='none';document.getElementById('loaderFallback').style.display='flex';" />
+      <div class="loader-fallback" id="loaderFallback">WX</div>
+    </div>
+    <div class="loader-title">Weber's X World</div>
+    <div class="loader-subtitle">Initializing Premium Experience...</div>
+    <div class="loader-bar"><div class="loader-fill"></div></div>
+    <div class="loader-dots"><span></span><span></span><span></span></div>
+  </div>
+</div>
+
+<!-- ═══════════════════ CURSOR ═══════════════════ -->
+<div class="cursor-dot" id="cursorDot"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+<div class="cursor-trail-wrap" id="cursorTrail"></div>
+
+<!-- ═══════════════════ PARTICLES ═══════════════════ -->
+<canvas id="particleCanvas"></canvas>
+
+<!-- ═══════════════════ NAVBAR ═══════════════════ -->
+<nav id="navbar">
+  <div class="nav-container">
+    <a href="#home" class="nav-brand">
+      <div class="nav-logo-wrap">
+        <img src="weber's-x-world.png" alt="Logo" class="nav-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
+        <div class="nav-logo-fallback" id="navFallback">WX</div>
       </div>
-      <div class="loader-title">Weber's X World</div>
-      <div class="loader-subtitle">Initializing Premium Experience...</div>
-      <div class="loader-bar"><div class="loader-fill"></div></div>
+      <span class="brand-name">Weber's <span class="gold">X</span> World</span>
+    </a>
+
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#home" class="nav-link active"><i class="fa-solid fa-house"></i> Home</a></li>
+      <li><a href="#courses" class="nav-link"><i class="fa-solid fa-book-open"></i> Courses</a></li>
+      <li><a href="#about" class="nav-link"><i class="fa-solid fa-circle-info"></i> About</a></li>
+      <li><a href="#certificates" class="nav-link"><i class="fa-solid fa-award"></i> Certificates</a></li>
+      <li><a href="#reviews" class="nav-link"><i class="fa-solid fa-star"></i> Reviews</a></li>
+      <li><a href="#contact" class="nav-link"><i class="fa-solid fa-envelope"></i> Contact</a></li>
+      <li><a href="#contact-form" class="nav-link"><i class="fa-solid fa-paper-plane"></i> Message Us</a></li>
+      <li><a href="#" class="nav-link" onclick="openFAQ();return false;"><i class="fa-solid fa-circle-question"></i> FAQ</a></li>
+    </ul>
+
+    <div class="nav-auth">
+      <div id="navLoggedOut">
+        <button class="btn-gold" onclick="signInGoogle()"><i class="fa-brands fa-google"></i> Sign In</button>
+      </div>
+      <div id="navLoggedIn" style="display:none;">
+        <div class="nav-user" onclick="toggleUserMenu()">
+          <img id="navUserAvatar" src="" alt="User" class="nav-avatar" />
+          <span id="navUserName" class="nav-username"></span>
+          <i class="fa-solid fa-chevron-down dropdown-arrow"></i>
+        </div>
+        <div class="user-dropdown" id="userDropdown">
+          <a href="#" onclick="showDashboard();return false;"><i class="fa-solid fa-chart-bar"></i> Dashboard</a>
+          <a href="#certificates"><i class="fa-solid fa-trophy"></i> My Certificates</a>
+          <a href="#" onclick="signOutUser();return false;"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
+        </div>
+      </div>
+    </div>
+
+    <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- ═══════════════════ HERO ═══════════════════ -->
+<section id="home" class="hero-section">
+  <div class="hero-bg-gradient"></div>
+  <div class="hero-grid-overlay"></div>
+  <div class="hero-light-beams">
+    <div class="light-beam lb1"></div>
+    <div class="light-beam lb2"></div>
+    <div class="light-beam lb3"></div>
+  </div>
+  <div class="hero-content">
+    <div class="hero-logo-wrap reveal">
+      <div class="hero-logo-glow"></div>
+      <div class="hero-logo-holo"></div>
+      <div class="hero-logo-ring r1"></div>
+      <div class="hero-logo-ring r2"></div>
+      <div class="hero-logo-ring r3"></div>
+      <img src="weber's-x-world.png" alt="Weber's X World" class="hero-logo" id="heroLogo"
+        onerror="this.style.display='none';document.getElementById('heroFallback').style.display='flex';" />
+      <div class="hero-logo-fallback" id="heroFallback">WX</div>
+    </div>
+    <div class="hero-badge reveal">
+      <i class="fa-solid fa-crown"></i>
+      Premium Online Education Platform
+    </div>
+    <h1 class="hero-title reveal">Weber's <span class="gold-text">X</span> World</h1>
+    <p class="hero-tagline reveal">Where Knowledge Meets <span class="gold-text">Excellence</span></p>
+    <p class="hero-desc reveal">
+      Live Google Meet classes. Real skills. Zero excuses.<br />
+      Free basic courses to advanced professional training — all online.
+    </p>
+    <div class="hero-stats reveal">
+      <div class="stat-card">
+        <div class="stat-icon"><i class="fa-solid fa-graduation-cap"></i></div>
+        <div class="stat-num" data-target="4">0</div>
+        <div class="stat-label">Free Courses</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon"><i class="fa-solid fa-rocket"></i></div>
+        <div class="stat-num" data-target="5">0</div>
+        <div class="stat-label">Advanced Courses</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon"><i class="fa-solid fa-chalkboard-user"></i></div>
+        <div class="stat-num" data-target="2">0</div>
+        <div class="stat-label">Expert Teachers</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon"><i class="fa-solid fa-video"></i></div>
+        <div class="stat-num" data-target="100">0</div>
+        <div class="stat-label">% Live Classes</div>
+      </div>
+    </div>
+    <div class="hero-btns reveal">
+      <a href="#courses" class="btn-primary btn-shine">Explore Courses <i class="fa-solid fa-arrow-right"></i></a>
+      <button class="btn-outline" onclick="signInGoogle()"><i class="fa-brands fa-google"></i> Join Free Now</button>
     </div>
   </div>
+  <div class="hero-scroll-hint">
+    <div class="scroll-arrow"></div>
+    <span>Scroll to explore</span>
+  </div>
+</section>
 
-  <!-- ═══════════════════════ CUSTOM CURSOR ═══════════════════════ -->
-  <div class="cursor-dot" id="cursorDot"></div>
-  <div class="cursor-ring" id="cursorRing"></div>
+<!-- ═══════════════════ SECTION DIVIDER ═══════════════════ -->
+<div class="section-divider"><div class="divider-line"></div><div class="divider-diamond"></div><div class="divider-line"></div></div>
 
-  <!-- ═══════════════════════ PARTICLES ═══════════════════════ -->
-  <canvas id="particleCanvas"></canvas>
-
-  <!-- ═══════════════════════ NAVBAR ═══════════════════════ -->
-  <nav id="navbar">
-    <div class="nav-container">
-      <a href="#home" class="nav-brand">
-        <div class="nav-logo-wrap">
-          <img src="weber's-x-world.png" alt="Logo" class="nav-logo" id="navLogo" onerror="this.style.display='none'; document.getElementById('navFallback').style.display='flex';" />
-        </div>
-        <span class="brand-name">Weber's <span class="gold">X</span> World</span>
-      </a>
-
-      <ul class="nav-links" id="navLinks">
-        <li><a href="#home" class="nav-link active" data-page="home">Home</a></li>
-        <li><a href="#courses" class="nav-link" data-page="courses">Courses</a></li>
-        <li><a href="#about" class="nav-link" data-page="about">About</a></li>
-        <li><a href="#certificates" class="nav-link" data-page="certificates">Certificates</a></li>
-        <li><a href="#reviews" class="nav-link" data-page="reviews">Reviews</a></li>
-        <li><a href="#contact" class="nav-link" data-page="contact">Contact</a></li>
-      </ul>
-
-      <div class="nav-auth">
-        <div id="navLoggedOut">
-          <button class="btn-gold" onclick="signInGoogle()">Sign In</button>
-        </div>
-        <div id="navLoggedIn" style="display:none;">
-          <div class="nav-user" onclick="toggleUserMenu()">
-            <img id="navUserAvatar" src="" alt="User" class="nav-avatar" />
-            <span id="navUserName" class="nav-username"></span>
-            <span class="dropdown-arrow">▾</span>
-          </div>
-          <div class="user-dropdown" id="userDropdown">
-            <a href="#dashboard" onclick="showDashboard()">Dashboard</a>
-            <a href="#certificates">My Certificates</a>
-            <a href="#" onclick="signOutUser()">Logout</a>
-          </div>
-        </div>
-      </div>
-
-      <button class="hamburger" id="hamburger" onclick="toggleMenu()">
-        <span></span><span></span><span></span>
-      </button>
+<!-- ═══════════════════ RULES ═══════════════════ -->
+<section id="rules" class="section rules-section">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-badge"><i class="fa-solid fa-triangle-exclamation"></i> Read Before Joining</div>
+      <h2 class="section-title">Important <span class="gold-text">Rules</span></h2>
+      <p class="section-sub">Weber's X World maintains strict academic standards. Please read carefully.</p>
     </div>
-  </nav>
-
-  <!-- ═══════════════════════ HERO SECTION ═══════════════════════ -->
-  <section id="home" class="hero-section">
-    <div class="hero-bg-gradient"></div>
-    <div class="hero-grid-overlay"></div>
-
-    <div class="hero-content">
-      <!-- Hero Logo -->
-      <div class="hero-logo-wrap reveal">
-        <div class="hero-logo-glow"></div>
-        <div class="hero-logo-ring r1"></div>
-        <div class="hero-logo-ring r2"></div>
-        <div class="hero-logo-ring r3"></div>
-        <img src="weber's-x-world.png" alt="Weber's X World" class="hero-logo" id="heroLogo" onerror="this.style.display='none'; document.getElementById('heroFallback').style.display='flex';" />
-        
+    <div class="rules-grid reveal">
+      <div class="rule-card tilt-card">
+        <div class="rule-icon-wrap"><i class="fa-solid fa-tower-broadcast"></i></div>
+        <h3>Live Lectures Only</h3>
+        <p>All classes are conducted LIVE. We do not offer recorded lectures under any circumstances.</p>
       </div>
-
-      <div class="hero-badge reveal">🌟 Premium Online Education Platform</div>
-      <h1 class="hero-title reveal">
-        Weber's <span class="gold-text">X</span> World
-      </h1>
-      <p class="hero-tagline reveal">Where Knowledge Meets <span class="gold-text">Excellence</span></p>
-      <p class="hero-desc reveal">
-        Live Google Meet classes. Real skills. Zero excuses.<br />
-        Free basic courses to advanced professional training — all online.
-      </p>
-
-      <div class="hero-stats reveal">
-        <div class="stat-card">
-          <div class="stat-num" data-target="5">0</div>
-          <div class="stat-label">Free Courses</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-num" data-target="5">0</div>
-          <div class="stat-label">Advanced Courses</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-num" data-target="2">0</div>
-          <div class="stat-label">Expert Teachers</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-num" data-target="100">0</div>
-          <div class="stat-label">% Live Classes</div>
-        </div>
+      <div class="rule-card tilt-card">
+        <div class="rule-icon-wrap"><i class="fa-brands fa-google"></i></div>
+        <h3>Google Meet Only</h3>
+        <p>All sessions happen exclusively on Google Meet. No other platform is used.</p>
       </div>
-
-      <div class="hero-btns reveal">
-        <a href="#courses" class="btn-primary">Explore Courses <span>→</span></a>
-        <button class="btn-outline" onclick="signInGoogle()">Join Free Now</button>
+      <div class="rule-card tilt-card">
+        <div class="rule-icon-wrap"><i class="fa-solid fa-pen-to-square"></i></div>
+        <h3>Homework Mandatory</h3>
+        <p>Every student must complete and submit assigned homework on time.</p>
       </div>
-    </div>
-
-    <div class="hero-scroll-hint">
-      <div class="scroll-arrow"></div>
-      <span>Scroll to explore</span>
-    </div>
-  </section>
-
-  <!-- ═══════════════════════ IMPORTANT RULES ═══════════════════════ -->
-  <section id="rules" class="section rules-section">
-    <div class="container">
-      <div class="section-header reveal">
-        <div class="section-badge">⚠️ Read Before Joining</div>
-        <h2 class="section-title">Important <span class="gold-text">Rules</span></h2>
-        <p class="section-sub">Weber's X World maintains strict academic standards. Please read carefully.</p>
+      <div class="rule-card tilt-card">
+        <div class="rule-icon-wrap"><i class="fa-solid fa-bullseye"></i></div>
+        <h3>Serious Students Only</h3>
+        <p>This platform is for dedicated learners. Time-pass students will be removed immediately.</p>
       </div>
-
-      <div class="rules-grid reveal">
-        <div class="rule-card"><div class="rule-icon">📡</div><h3>Live Lectures Only</h3><p>All classes are conducted LIVE. We do not offer recorded lectures under any circumstances.</p></div>
-        <div class="rule-card"><div class="rule-icon">📹</div><h3>Google Meet Only</h3><p>All sessions happen exclusively on Google Meet. No other platform is used.</p></div>
-        <div class="rule-card"><div class="rule-icon">📝</div><h3>Homework Mandatory</h3><p>Every student must complete and submit assigned homework on time.</p></div>
-        <div class="rule-card"><div class="rule-icon">🎯</div><h3>Serious Students Only</h3><p>This platform is for dedicated learners. Time-pass students will be removed immediately.</p></div>
-        <div class="rule-card"><div class="rule-icon">📊</div><h3>Performance Standards</h3><p>Students with consistently poor performance may be removed from the course.</p></div>
-        <div class="rule-card"><div class="rule-icon">🙋</div><h3>Active Participation</h3><p>Participation in each class session is mandatory. Silent attendance is not enough.</p></div>
-        <div class="rule-card"><div class="rule-icon">🌐</div><h3>Online Only</h3><p>Weber's X World is a fully online organization. No offline classes are available.</p></div>
-        <div class="rule-card"><div class="rule-icon">🚫</div><h3>No Recordings</h3><p>Students are strictly prohibited from recording any live sessions.</p></div>
+      <div class="rule-card tilt-card">
+        <div class="rule-icon-wrap"><i class="fa-solid fa-chart-line"></i></div>
+        <h3>Performance Standards</h3>
+        <p>Students with consistently poor performance may be removed from the course.</p>
       </div>
-    </div>
-  </section>
-
-  <!-- ═══════════════════════ FREE COURSES ═══════════════════════ -->
-  <section id="courses" class="section courses-section">
-    <div class="container">
-      <div class="section-header reveal">
-        <div class="section-badge">🆓 Zero Cost</div>
-        <h2 class="section-title">Free Basic <span class="gold-text">Courses</span></h2>
-        <p class="section-sub">Genuine learning. Zero fees. Live sessions on Google Meet.</p>
+      <div class="rule-card tilt-card">
+        <div class="rule-icon-wrap"><i class="fa-solid fa-hand-point-up"></i></div>
+        <h3>Active Participation</h3>
+        <p>Participation in each class session is mandatory. Silent attendance is not enough.</p>
       </div>
-
-      <div class="courses-grid" id="freeCoursesGrid">
-        <!-- Rendered by JS -->
+      <div class="rule-card tilt-card">
+        <div class="rule-icon-wrap"><i class="fa-solid fa-globe"></i></div>
+        <h3>Online Only</h3>
+        <p>Weber's X World is a fully online organization. No offline classes are available.</p>
       </div>
-    </div>
-  </section>
-
-  <!-- ═══════════════════════ ADVANCED COURSES ═══════════════════════ -->
-  <section id="advanced" class="section advanced-section">
-    <div class="container">
-      <div class="section-header reveal">
-        <div class="section-badge">💎 Premium</div>
-        <h2 class="section-title">Advanced <span class="gold-text">Courses</span></h2>
-        <p class="section-sub">Master your craft. Professional-level training by expert educators.</p>
+      <div class="rule-card tilt-card">
+        <div class="rule-icon-wrap"><i class="fa-solid fa-ban"></i></div>
+        <h3>No Recordings</h3>
+        <p>Students are strictly prohibited from recording any live sessions.</p>
       </div>
-
-      <div class="courses-grid advanced-grid" id="advancedCoursesGrid">
-        <!-- Rendered by JS -->
-      </div>
-    </div>
-  </section>
-
-  <!-- ═══════════════════════ ABOUT ═══════════════════════ -->
-  <section id="about" class="section about-section">
-    <div class="container">
-      <div class="about-grid">
-        <div class="about-visual reveal">
-          <div class="about-logo-wrap">
-            <div class="about-logo-glow"></div>
-            <div class="about-logo-ring ar1"></div>
-            <div class="about-logo-ring ar2"></div>
-            <img src="weber's-x-world.png" alt="Logo" class="about-logo" onerror="this.style.display='none';" />
-          </div>
-          <div class="about-badges">
-            <div class="about-badge">🎓 Est. 2024</div>
-            <div class="about-badge">📡 100% Online</div>
-            <div class="about-badge">🌟 Live Classes</div>
-          </div>
-        </div>
-
-        <div class="about-content reveal">
-          <div class="section-badge">🏢 About Us</div>
-          <h2 class="section-title">What is <span class="gold-text">Weber's X World?</span></h2>
-          <p>Weber's X World is a premium online educational organization founded by <strong>Salik</strong> and <strong>Munazza</strong> — two passionate educators committed to delivering real, practical knowledge through live interactive sessions.</p>
-          <p>We believe education should be <span class="gold-text">accessible</span>, <span class="gold-text">high-quality</span>, and <span class="gold-text">results-driven</span>. That's why we offer completely free basic courses — no hidden fees, no recorded lectures, just live Google Meet sessions with real teachers.</p>
-          <p>Our mission is simple: <strong>Build trust through free learning, then empower serious students with advanced professional skills.</strong></p>
-
-          <div class="about-features">
-            <div class="af-item"><span>✓</span> Live Google Meet sessions only</div>
-            <div class="af-item"><span>✓</span> Real expert teachers</div>
-            <div class="af-item"><span>✓</span> Free basic to paid advanced</div>
-            <div class="af-item"><span>✓</span> Homework-based learning</div>
-            <div class="af-item"><span>✓</span> Certificate upon completion</div>
-            <div class="af-item"><span>✓</span> Dedicated student support</div>
-          </div>
-
-          <div class="teachers-row">
-            <div class="teacher-card">
-              <div class="teacher-avatar">S</div>
-              <div>
-                <div class="teacher-name">Salik</div>
-                <div class="teacher-subjects">Computer • Web Design • AI Tools</div>
-              </div>
-            </div>
-            <div class="teacher-card">
-              <div class="teacher-avatar">M</div>
-              <div>
-                <div class="teacher-name">Munazza</div>
-                <div class="teacher-subjects">Graphic Design • Video Editing</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ═══════════════════════ CERTIFICATES ═══════════════════════ -->
-  <section id="certificates" class="section cert-section">
-    <div class="container">
-      <div class="section-header reveal">
-        <div class="section-badge">🏆 Achievement</div>
-        <h2 class="section-title">My <span class="gold-text">Certificates</span></h2>
-        <p class="section-sub">Your earned certificates. Login to view and download them.</p>
-      </div>
-
-      <div id="certLoggedOut" class="cert-login-prompt reveal">
-        <div class="cert-login-card">
-          <div class="clc-icon">🔐</div>
-          <h3>Login to View Certificates</h3>
-          <p>Sign in with your Google account to access your personal certificate collection.</p>
-          <button class="btn-gold" onclick="signInGoogle()">Continue with Google</button>
-        </div>
-      </div>
-
-      <div id="certLoggedIn" style="display:none;">
-        <div class="certificates-grid" id="certificatesGrid">
-          <!-- Rendered by JS after login -->
-        </div>
-        <div id="certLoading" class="cert-loading">
-          <div class="cert-spinner"></div>
-          <p>Fetching your certificates...</p>
-        </div>
-        <div id="certEmpty" style="display:none;" class="cert-empty">
-          <div class="ce-icon">📄</div>
-          <h3>No Certificates Yet</h3>
-          <p>Complete a course to earn your first certificate!</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ═══════════════════════ REVIEWS ═══════════════════════ -->
-  <section id="reviews" class="section reviews-section">
-    <div class="container">
-      <div class="section-header reveal">
-        <div class="section-badge">⭐ Student Voices</div>
-        <h2 class="section-title">Student <span class="gold-text">Reviews</span></h2>
-        <p class="section-sub">Real feedback from real learners. Every review is verified.</p>
-      </div>
-
-      <div class="reviews-grid" id="reviewsGrid">
-        <!-- Rendered by JS -->
-      </div>
-
-      <!-- Submit Review -->
-      <div class="review-submit-section reveal">
-        <div class="rs-card">
-          <h3>Share Your <span class="gold-text">Experience</span></h3>
-          <p>Help other students by sharing your honest review.</p>
-
-          <div id="reviewFormLoggedOut">
-            <button class="btn-gold" onclick="signInGoogle()">Login to Submit Review</button>
-          </div>
-
-          <div id="reviewFormLoggedIn" style="display:none;">
-            <div class="form-group">
-              <label>Select Course</label>
-              <select id="reviewCourse" class="form-select">
-                <option value="">Choose a course...</option>
-                <option value="Basic of Computer">Basic of Computer</option>
-                <option value="Web Design">Web Design</option>
-                <option value="Graphic Design">Graphic Design</option>
-                <option value="Exploring AI Tools">Exploring AI Tools</option>
-                <option value="Video Editing">Video Editing</option>
-              </select>
-            </div>
-            <div class="form-group">
-              <label>Your Rating</label>
-              <div class="star-rating" id="starRating">
-                <span class="star" data-val="1">★</span>
-                <span class="star" data-val="2">★</span>
-                <span class="star" data-val="3">★</span>
-                <span class="star" data-val="4">★</span>
-                <span class="star" data-val="5">★</span>
-              </div>
-              <input type="hidden" id="ratingValue" value="0" />
-            </div>
-            <div class="form-group">
-              <label>Your Review</label>
-              <textarea id="reviewText" class="form-textarea" placeholder="Write your honest review here..." rows="4"></textarea>
-            </div>
-            <button class="btn-primary" onclick="submitReview()">Submit Review</button>
-            <div id="reviewMsg" class="form-msg"></div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ═══════════════════════ CONTACT ═══════════════════════ -->
-  <section id="contact" class="section contact-section">
-    <div class="container">
-      <div class="section-header reveal">
-        <div class="section-badge">📬 Get In Touch</div>
-        <h2 class="section-title">Contact <span class="gold-text">Us</span></h2>
-        <p class="section-sub">Have questions? Reach out directly to our teachers.</p>
-      </div>
-
-      <div class="contact-grid reveal">
-        <div class="contact-card">
-          <div class="cc-avatar">S</div>
-          <h3 class="cc-name">Salik</h3>
-          <div class="cc-role">Teacher – Computer, Web Design, AI Tools</div>
-          <div class="cc-links">
-            <a href="mailto:salikshaikh278@gmail.com" class="cc-btn email-btn">📧 Email Sir</a>
-            <a href="https://wa.me/917069331761?text=Hello%20Sir%2C%20I%20want%20to%20join%20Weber's%20X%20World" target="_blank" class="cc-btn wa-btn">💬 WhatsApp</a>
-          </div>
-        </div>
-
-        <div class="contact-card">
-          <div class="cc-avatar mam">M</div>
-          <h3 class="cc-name">Munazza</h3>
-          <div class="cc-role">Teacher – Graphic Design, Video Editing</div>
-          <div class="cc-links">
-            <a href="mailto:munazzashaikh531@gmail.com" class="cc-btn email-btn">📧 Email Mam</a>
-            <a href="https://wa.me/917069878373?text=Hello%20Mam%2C%20I%20want%20to%20join%20Weber's%20X%20World" target="_blank" class="cc-btn wa-btn">💬 WhatsApp</a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ═══════════════════════ STUDENT DASHBOARD ═══════════════════════ -->
-  <div id="dashboardOverlay" class="dashboard-overlay" style="display:none;">
-    <div class="dashboard-panel">
-      <button class="dash-close" onclick="hideDashboard()">✕</button>
-
-      <div class="dash-header">
-        <img id="dashAvatar" src="" alt="" class="dash-avatar" />
-        <div>
-          <h2 id="dashName" class="dash-name"></h2>
-          <div id="dashEmail" class="dash-email"></div>
-          <div class="dash-badge-online">● Online</div>
-        </div>
-      </div>
-
-      <div class="dash-tabs">
-        <button class="dash-tab active" onclick="showDashTab('overview', this)">Overview</button>
-        <button class="dash-tab" onclick="showDashTab('certificates', this)">Certificates</button>
-        <button class="dash-tab" onclick="showDashTab('reviews', this)">My Reviews</button>
-      </div>
-
-      <div class="dash-content">
-        <div class="dash-pane" id="dashOverview">
-          <div class="dash-cards">
-            <div class="dash-info-card"><div class="dic-icon">🎓</div><div><div class="dic-val" id="dashCertCount">0</div><div class="dic-label">Certificates</div></div></div>
-            <div class="dash-info-card"><div class="dic-icon">⭐</div><div><div class="dic-val" id="dashReviewCount">0</div><div class="dic-label">Reviews Given</div></div></div>
-            <div class="dash-info-card"><div class="dic-icon">📚</div><div><div class="dic-val">10</div><div class="dic-label">Courses Available</div></div></div>
-          </div>
-          <div class="dash-welcome-msg">
-            <h3>Welcome to <span class="gold-text">Weber's X World!</span></h3>
-            <p>Your journey to mastery starts here. Attend live classes, complete homework, and earn certificates.</p>
-          </div>
-        </div>
-
-        <div class="dash-pane" id="dashCertificates" style="display:none;">
-          <div id="dashCertGrid" class="dash-cert-grid"></div>
-        </div>
-
-        <div class="dash-pane" id="dashReviews" style="display:none;">
-          <div id="dashReviewList" class="dash-review-list"></div>
-        </div>
-      </div>
-
-      <button class="btn-logout" onclick="signOutUser()">🚪 Logout</button>
     </div>
   </div>
+</section>
 
-  <!-- ═══════════════════════ FOOTER ═══════════════════════ -->
-  <footer class="footer">
-    <div class="footer-glow"></div>
-    <div class="container">
-      <div class="footer-grid">
-        <div class="footer-brand">
-          <div class="footer-logo-wrap">
-            <img src="weber's-x-world.png" alt="Weber's X World Logo" class="loader-logo" id="loaderLogo" onerror="this.style.display='none'; document.getElementById('loaderFallback').style.display='flex';" />
-          </div>
-          <div class="footer-brand-name">Weber's <span class="gold-text">X</span> World</div>
-          <p class="footer-tagline">Premium online education. Live. Real. Effective.</p>
-          <div class="footer-social">
-            <a href="https://wa.me/917069331761" target="_blank" class="social-btn">WhatsApp Sir</a>
-            <a href="https://wa.me/917069878373" target="_blank" class="social-btn">WhatsApp Mam</a>
-          </div>
-        </div>
+<div class="section-divider"><div class="divider-line"></div><div class="divider-diamond"></div><div class="divider-line"></div></div>
 
-        <div class="footer-col">
-          <h4 class="footer-col-title">Quick Links</h4>
-          <ul class="footer-links">
-            <li><a href="#home">Home</a></li>
-            <li><a href="#courses">Free Courses</a></li>
-            <li><a href="#advanced">Advanced Courses</a></li>
-            <li><a href="#about">About Us</a></li>
-            <li><a href="#certificates">Certificates</a></li>
-            <li><a href="#reviews">Reviews</a></li>
-          </ul>
-        </div>
-
-        <div class="footer-col">
-          <h4 class="footer-col-title">Contact</h4>
-          <div class="footer-contact-item">
-            <span>📧 Sir:</span>
-            <a href="mailto:salikshaikh278@gmail.com">salikshaikh278@gmail.com</a>
-          </div>
-          <div class="footer-contact-item">
-            <span>📧 Mam:</span>
-            <a href="mailto:munazzashaikh531@gmail.com">munazzashaikh531@gmail.com</a>
-          </div>
-          <div class="footer-contact-item">
-            <span>📱 Sir:</span>
-            <a href="https://wa.me/917069331761">+91 7069331761</a>
-          </div>
-          <div class="footer-contact-item">
-            <span>📱 Mam:</span>
-            <a href="https://wa.me/917069878373">+91 7069878373</a>
-          </div>
-        </div>
-
-        <div class="footer-col">
-          <h4 class="footer-col-title">Support</h4>
-          <ul class="footer-links">
-            <li><a href="#rules">Important Rules</a></li>
-            <li><a href="#contact">Get Help</a></li>
-            <li><a href="#certificates">Certificates</a></li>
-          </ul>
-          <div class="footer-note">
-            <p>Classes are conducted via Google Meet only. No offline sessions available.</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="footer-bottom">
-        <p>© 2026 Weber's X World. All Rights Reserved.</p>
-        <p>Built with ❤️ for serious learners.</p>
-      </div>
+<!-- ═══════════════════ FREE COURSES ═══════════════════ -->
+<section id="courses" class="section courses-section">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-badge"><i class="fa-solid fa-gift"></i> Zero Cost</div>
+      <h2 class="section-title">Free Basic <span class="gold-text">Courses</span></h2>
+      <p class="section-sub">Genuine learning. Zero fees. Live sessions on Google Meet.</p>
     </div>
-  </footer>
+    <div class="courses-grid" id="freeCoursesGrid"></div>
+  </div>
+</section>
 
-  <!-- ═══════════════════════ FLOATING WHATSAPP ═══════════════════════ -->
-  <div class="floating-wa" id="floatingWA">
-    <button class="fwa-toggle" onclick="toggleWA()">💬</button>
-    <div class="fwa-panel" id="fwaPanel">
-      <div class="fwa-title">Quick Contact</div>
-      <a href="https://wa.me/917069331761?text=Hello%20Sir" target="_blank" class="fwa-btn">Chat with Sir 📚</a>
-      <a href="https://wa.me/917069878373?text=Hello%20Mam" target="_blank" class="fwa-btn">Chat with Mam 🎨</a>
+<div class="section-divider"><div class="divider-line"></div><div class="divider-diamond"></div><div class="divider-line"></div></div>
+
+<!-- ═══════════════════ ADVANCED COURSES ═══════════════════ -->
+<section id="advanced" class="section advanced-section">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-badge"><i class="fa-solid fa-gem"></i> Premium</div>
+      <h2 class="section-title">Advanced <span class="gold-text">Courses</span></h2>
+      <p class="section-sub">Master your craft. Professional-level training by expert educators.</p>
+    </div>
+    <div class="courses-grid advanced-grid" id="advancedCoursesGrid"></div>
+  </div>
+</section>
+
+<div class="section-divider"><div class="divider-line"></div><div class="divider-diamond"></div><div class="divider-line"></div></div>
+
+<!-- ═══════════════════ ABOUT ═══════════════════ -->
+<section id="about" class="section about-section">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-visual reveal">
+        <div class="about-logo-wrap">
+          <div class="about-logo-glow"></div>
+          <div class="about-logo-ring ar1"></div>
+          <div class="about-logo-ring ar2"></div>
+          <img src="weber's-x-world.png" alt="Logo" class="about-logo" onerror="this.style.display='none';" />
+        </div>
+        <div class="about-badges">
+          <div class="about-badge"><i class="fa-solid fa-graduation-cap"></i> Est. 2024</div>
+          <div class="about-badge"><i class="fa-solid fa-signal"></i> 100% Online</div>
+          <div class="about-badge"><i class="fa-solid fa-video"></i> Live Classes</div>
+        </div>
+      </div>
+      <div class="about-content reveal">
+        <div class="section-badge"><i class="fa-solid fa-building"></i> About Us</div>
+        <h2 class="section-title">What is <span class="gold-text">Weber's X World?</span></h2>
+        <p>Weber's X World is a premium online educational organization founded by <strong>Salik</strong> and <strong>Munazza</strong> — two passionate educators committed to delivering real, practical knowledge through live interactive sessions.</p>
+        <p>We believe education should be <span class="gold-text">accessible</span>, <span class="gold-text">high-quality</span>, and <span class="gold-text">results-driven</span>. That's why we offer completely free basic courses — no hidden fees, no recorded lectures, just live Google Meet sessions with real teachers.</p>
+
+        <div class="kashiful-card reveal">
+          <div class="kashiful-badge"><i class="fa-solid fa-landmark"></i> Our Learning Foundation</div>
+          <h3>Kashiful Uloom Computer Class</h3>
+          <p>Both of our teachers — Salik and Munazza — learned their core skills, courses, and teaching methodologies from <strong>Kashiful Uloom Computer Class</strong>, a renowned institute known for its excellence in computer education, skill training, and practical learning programs.</p>
+          <p>Kashiful Uloom offers professional computer courses, certificate programs, graphic design, web design, and comprehensive IT skill training — empowering students with real-world knowledge since years.</p>
+          <div class="kashiful-links">
+            <a href="https://www.google.com/maps/place/Kashiful+Uloom+Computer+class/" target="_blank" class="kashiful-btn"><i class="fa-solid fa-location-dot"></i> View on Maps</a>
+            <a href="https://kashifululoom.co.in" target="_blank" class="kashiful-btn gold-btn"><i class="fa-solid fa-earth-asia"></i> Visit Website</a>
+          </div>
+        </div>
+
+        <div class="about-features">
+          <div class="af-item"><i class="fa-solid fa-check af-check"></i> Live Google Meet sessions only</div>
+          <div class="af-item"><i class="fa-solid fa-check af-check"></i> Real expert teachers</div>
+          <div class="af-item"><i class="fa-solid fa-check af-check"></i> Free basic to paid advanced</div>
+          <div class="af-item"><i class="fa-solid fa-check af-check"></i> Homework-based learning</div>
+          <div class="af-item"><i class="fa-solid fa-check af-check"></i> Certificate upon completion</div>
+          <div class="af-item"><i class="fa-solid fa-check af-check"></i> Dedicated student support</div>
+        </div>
+
+        <div class="teachers-row">
+          <div class="teacher-card tilt-card">
+            <div class="teacher-avatar">S</div>
+            <div>
+              <div class="teacher-name">Salik</div>
+              <div class="teacher-subjects">Computer · Web Design · AI Tools</div>
+            </div>
+          </div>
+          <div class="teacher-card tilt-card">
+            <div class="teacher-avatar">M</div>
+            <div>
+              <div class="teacher-name">Munazza</div>
+              <div class="teacher-subjects">Graphic Design · Video Editing</div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
+</section>
 
-  <!-- ═══════════════════════ TOAST ═══════════════════════ -->
-  <div id="toast" class="toast"></div>
+<div class="section-divider"><div class="divider-line"></div><div class="divider-diamond"></div><div class="divider-line"></div></div>
 
-  <!-- ═══════════════════════ FIREBASE ═══════════════════════ -->
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-    import {
-      getAuth, GoogleAuthProvider, signInWithPopup, onAuthStateChanged, signOut
-    } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
-    import {
-      getFirestore, collection, addDoc, getDocs, query, where, doc, setDoc, getDoc
-    } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
-    import {
-      getStorage, ref, getDownloadURL
-    } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-storage.js";
+<!-- ═══════════════════ CERTIFICATES ═══════════════════ -->
+<section id="certificates" class="section cert-section">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-badge"><i class="fa-solid fa-trophy"></i> Achievement</div>
+      <h2 class="section-title">My <span class="gold-text">Certificates</span></h2>
+      <p class="section-sub">Your earned certificates. Login to view and download them.</p>
+    </div>
 
-    const firebaseConfig = {
-      apiKey: "AIzaSyCo6tW8aKIYVgddGk9NXJwlaj5A3kj-5Vo",
-      authDomain: "webers-x-world.firebaseapp.com",
-      projectId: "webers-x-world",
-      storageBucket: "webers-x-world.firebasestorage.app",
-      messagingSenderId: "731350093441",
-      appId: "1:731350093441:web:93b4856d900ef8d97f4780",
-      measurementId: "G-TJRKNLS4VZ"
-    };
+    <div id="certLoggedOut" class="cert-login-prompt reveal">
+      <div class="cert-login-card tilt-card">
+        <div class="clc-icon"><i class="fa-solid fa-lock"></i></div>
+        <h3>Login to View Certificates</h3>
+        <p>Sign in with your Google account to access your personal certificate collection.</p>
+        <button class="btn-gold btn-shine" onclick="signInGoogle()"><i class="fa-brands fa-google"></i> Continue with Google</button>
+      </div>
+    </div>
 
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
-    const provider = new GoogleAuthProvider();
-    const db = getFirestore(app);
-    const storage = getStorage(app);
+    <div id="certLoggedIn" style="display:none;">
+      <div class="cert-slider-wrap">
+        <div class="cert-slider" id="certificatesGrid"></div>
+      </div>
+      <div id="certLoading" class="cert-loading">
+        <div class="cert-spinner"></div>
+        <p>Fetching your certificates...</p>
+      </div>
+      <div id="certEmpty" style="display:none;" class="cert-empty">
+        <div class="clc-icon"><i class="fa-solid fa-file-circle-xmark"></i></div>
+        <h3>No Certificates Yet</h3>
+        <p>Complete an advanced course to earn your first certificate!</p>
+      </div>
+    </div>
+  </div>
+</section>
 
-    // ─── Expose globally ───
-    window._auth = auth;
-    window._provider = provider;
-    window._db = db;
-    window._storage = storage;
-    window._signInWithPopup = signInWithPopup;
-    window._signOut = signOut;
-    window._onAuthStateChanged = onAuthStateChanged;
-    window._collection = collection;
-    window._addDoc = addDoc;
-    window._getDocs = getDocs;
-    window._query = query;
-    window._where = where;
-    window._doc = doc;
-    window._setDoc = setDoc;
-    window._getDoc = getDoc;
-    window._ref = ref;
-    window._getDownloadURL = getDownloadURL;
+<div class="section-divider"><div class="divider-line"></div><div class="divider-diamond"></div><div class="divider-line"></div></div>
 
-    // ─── Auth State ───
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        window.currentUser = user;
-        document.getElementById('navLoggedOut').style.display = 'none';
-        document.getElementById('navLoggedIn').style.display = 'flex';
-        document.getElementById('navUserAvatar').src = user.photoURL || '';
-        document.getElementById('navUserName').textContent = user.displayName?.split(' ')[0] || 'Student';
-        document.getElementById('certLoggedOut').style.display = 'none';
-        document.getElementById('certLoggedIn').style.display = 'block';
-        document.getElementById('reviewFormLoggedOut').style.display = 'none';
-        document.getElementById('reviewFormLoggedIn').style.display = 'block';
-        loadCertificates(user.email);
-        loadUserReviews();
-      } else {
-        window.currentUser = null;
-        document.getElementById('navLoggedOut').style.display = 'flex';
-        document.getElementById('navLoggedIn').style.display = 'none';
-        document.getElementById('certLoggedOut').style.display = 'block';
-        document.getElementById('certLoggedIn').style.display = 'none';
-        document.getElementById('reviewFormLoggedOut').style.display = 'block';
-        document.getElementById('reviewFormLoggedIn').style.display = 'none';
-      }
+<!-- ═══════════════════ REVIEWS ═══════════════════ -->
+<section id="reviews" class="section reviews-section">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-badge"><i class="fa-solid fa-star"></i> Student Voices</div>
+      <h2 class="section-title">Student <span class="gold-text">Reviews</span></h2>
+      <p class="section-sub">Real feedback from real learners. Every review is verified.</p>
+    </div>
+
+    <div class="reviews-marquee-wrap">
+      <div class="reviews-marquee" id="reviewsGrid">
+        <div class="reviews-loading-msg"><i class="fa-solid fa-spinner fa-spin"></i> Loading reviews...</div>
+      </div>
+    </div>
+
+    <!-- Submit Review -->
+    <div class="review-submit-section reveal">
+      <div class="rs-card">
+        <h3>Share Your <span class="gold-text">Experience</span></h3>
+        <p>Help other students by sharing your honest review.</p>
+
+        <div id="reviewFormLoggedOut">
+          <button class="btn-gold btn-shine" onclick="signInGoogle()"><i class="fa-brands fa-google"></i> Login to Submit Review</button>
+        </div>
+
+        <div id="reviewFormLoggedIn" style="display:none;">
+          <div class="form-group">
+            <label><i class="fa-solid fa-book"></i> Select Course</label>
+            <select id="reviewCourse" class="form-select">
+              <option value="">Choose a course...</option>
+              <option value="Basic of Computer">Basic of Computer</option>
+              <option value="Web Design">Web Design</option>
+              <option value="Graphic Design">Graphic Design</option>
+              <option value="Video Editing">Video Editing</option>
+              <option value="Advanced Basic of Computer">Advanced Basic of Computer</option>
+              <option value="Advanced Web Design">Advanced Web Design</option>
+              <option value="Advanced Graphic Design">Advanced Graphic Design</option>
+              <option value="Advanced AI Tools">Advanced AI Tools</option>
+              <option value="Advanced Video Editing">Advanced Video Editing</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label><i class="fa-solid fa-star"></i> Your Rating</label>
+            <div class="star-rating" id="starRating">
+              <span class="star" data-val="1"><i class="fa-solid fa-star"></i></span>
+              <span class="star" data-val="2"><i class="fa-solid fa-star"></i></span>
+              <span class="star" data-val="3"><i class="fa-solid fa-star"></i></span>
+              <span class="star" data-val="4"><i class="fa-solid fa-star"></i></span>
+              <span class="star" data-val="5"><i class="fa-solid fa-star"></i></span>
+            </div>
+            <input type="hidden" id="ratingValue" value="0" />
+          </div>
+          <div class="form-group">
+            <label><i class="fa-solid fa-pen"></i> Your Review</label>
+            <textarea id="reviewText" class="form-textarea" placeholder="Write your honest review here..." rows="4"></textarea>
+          </div>
+          <button class="btn-primary btn-shine" onclick="submitReview()"><i class="fa-solid fa-paper-plane"></i> Submit Review</button>
+          <div id="reviewMsg" class="form-msg"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"><div class="divider-line"></div><div class="divider-diamond"></div><div class="divider-line"></div></div>
+
+<!-- ═══════════════════ CONTACT ═══════════════════ -->
+<section id="contact" class="section contact-section">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-badge"><i class="fa-solid fa-inbox"></i> Get In Touch</div>
+      <h2 class="section-title">Contact <span class="gold-text">Us</span></h2>
+      <p class="section-sub">Have questions? Reach out directly to our teachers.</p>
+    </div>
+    <div class="contact-grid reveal">
+      <div class="contact-card tilt-card">
+        <div class="cc-avatar">S</div>
+        <h3 class="cc-name">Salik</h3>
+        <div class="cc-role">Teacher – Computer, Web Design, AI Tools</div>
+        <div class="cc-links">
+          <a href="mailto:salikshaikh278@gmail.com" class="cc-btn email-btn"><i class="fa-solid fa-envelope"></i> Email Sir</a>
+          <a href="https://wa.me/917069331761?text=Hello%20Sir%2C%20I%20want%20to%20join%20Weber's%20X%20World" target="_blank" class="cc-btn wa-btn"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a>
+        </div>
+      </div>
+      <div class="contact-card tilt-card">
+        <div class="cc-avatar">M</div>
+        <h3 class="cc-name">Munazza</h3>
+        <div class="cc-role">Teacher – Graphic Design, Video Editing</div>
+        <div class="cc-links">
+          <a href="mailto:munazzashaikh531@gmail.com" class="cc-btn email-btn"><i class="fa-solid fa-envelope"></i> Email Mam</a>
+          <a href="https://wa.me/917069878373?text=Hello%20Mam%2C%20I%20want%20to%20join%20Weber's%20X%20World" target="_blank" class="cc-btn wa-btn"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a>
+        </div>
+      </div>
+      <div class="contact-card tilt-card">
+        <div class="cc-avatar gold-av"><i class="fa-solid fa-envelope"></i></div>
+        <h3 class="cc-name">General Enquiry</h3>
+        <div class="cc-role">Courses, Enrollment &amp; Support</div>
+        <div class="cc-links">
+          <a href="mailto:webersxworld@gmail.com" class="cc-btn email-btn"><i class="fa-solid fa-envelope"></i> Email Us</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"><div class="divider-line"></div><div class="divider-diamond"></div><div class="divider-line"></div></div>
+
+<!-- ═══════════════════ CONTACT FORM ═══════════════════ -->
+<section id="contact-form" class="section contact-form-section">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-badge"><i class="fa-solid fa-paper-plane"></i> Drop Us a Line</div>
+      <h2 class="section-title">Send Us a <span class="gold-text">Message</span></h2>
+      <p class="section-sub">Fill in the form below and we'll get back to you shortly.</p>
+    </div>
+
+    <div class="cf-glass-card reveal">
+      <div class="cf-top-glow"></div>
+      <div class="cf-grid">
+
+        <!-- Left: decorative info -->
+        <div class="cf-info-col">
+          <div class="cf-info-title">Weber's <span class="gold-text">X</span> World</div>
+          <p class="cf-info-sub">We respond to every message within 24 hours. Let's start your learning journey today.</p>
+          <div class="cf-info-items">
+            <div class="cf-info-item"><div class="cf-info-icon"><i class="fa-solid fa-envelope"></i></div><span>webersxworld@gmail.com</span></div>
+            <div class="cf-info-item"><div class="cf-info-icon"><i class="fa-brands fa-whatsapp"></i></div><span>+91 70693 31761</span></div>
+            <div class="cf-info-item"><div class="cf-info-icon"><i class="fa-solid fa-video"></i></div><span>100% Live on Google Meet</span></div>
+            <div class="cf-info-item"><div class="cf-info-icon"><i class="fa-solid fa-graduation-cap"></i></div><span>Free &amp; Advanced Courses</span></div>
+          </div>
+          <div class="cf-orb-deco"></div>
+        </div>
+
+        <!-- Right: form -->
+        <div class="cf-form-col">
+          <div class="cf-field-row">
+            <div class="cf-field">
+              <label class="cf-label" for="contactName"><i class="fa-solid fa-user"></i> Full Name</label>
+              <input type="text" id="contactName" class="cf-input" placeholder="Your full name" autocomplete="name" />
+            </div>
+            <div class="cf-field">
+              <label class="cf-label" for="contactPhone"><i class="fa-solid fa-phone"></i> Phone Number</label>
+              <input type="tel" id="contactPhone" class="cf-input" placeholder="+91 XXXXXXXXXX" autocomplete="tel" />
+            </div>
+          </div>
+          <div class="cf-field">
+            <label class="cf-label" for="contactEmail"><i class="fa-solid fa-envelope"></i> Email Address</label>
+            <input type="email" id="contactEmail" class="cf-input" placeholder="your@email.com" autocomplete="email" />
+          </div>
+          <div class="cf-field">
+            <label class="cf-label" for="contactCourse"><i class="fa-solid fa-book-open"></i> Interested Course</label>
+            <select id="contactCourse" class="cf-input cf-select">
+              <option value="">Select a course...</option>
+              <optgroup label="── Free Courses ──">
+                <option value="Basic of Computer (Free)">Basic of Computer</option>
+                <option value="Web Design (Free)">Web Design</option>
+                <option value="Graphic Design (Free)">Graphic Design</option>
+                <option value="Video Editing (Free)">Video Editing</option>
+              </optgroup>
+              <optgroup label="── Advanced Courses ──">
+                <option value="Advanced Basic of Computer">Advanced Basic of Computer</option>
+                <option value="Advanced Web Design &amp; Development">Advanced Web Design &amp; Development</option>
+                <option value="Advanced Graphic Design">Advanced Graphic Design</option>
+                <option value="Advanced AI Tools &amp; Automation">Advanced AI Tools &amp; Automation</option>
+                <option value="Advanced Video Editing &amp; Production">Advanced Video Editing &amp; Production</option>
+              </optgroup>
+              <option value="None / Just Enquiring">None / Just Enquiring</option>
+            </select>
+          </div>
+          <div class="cf-field">
+            <label class="cf-label" for="contactMessage"><i class="fa-solid fa-comment-dots"></i> Your Message</label>
+            <textarea id="contactMessage" class="cf-input cf-textarea" placeholder="Tell us what you'd like to know..." rows="4"></textarea>
+          </div>
+
+          <div id="contactFormMsg" class="contact-form-msg" style="display:none;"></div>
+
+          <button class="cf-submit-btn btn-shine" id="contactSubmitBtn" onclick="submitContactForm()">
+            <i class="fa-solid fa-paper-plane"></i> Send Message
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ DASHBOARD OVERLAY ═══════════════════ -->
+<div class="dashboard-overlay" id="dashboardOverlay">
+  <div class="dashboard-panel">
+    <button class="dash-close" onclick="hideDashboard()"><i class="fa-solid fa-xmark"></i></button>
+    <div class="dash-header">
+      <img id="dashAvatar" src="" alt="" class="dash-avatar" />
+      <div>
+        <div class="dash-name" id="dashName">Student</div>
+        <div class="dash-email" id="dashEmail"></div>
+      </div>
+    </div>
+    <div class="dash-tabs">
+      <button class="dash-tab active" onclick="showDashTab('Overview',this)"><i class="fa-solid fa-chart-pie"></i> Overview</button>
+      <button class="dash-tab" onclick="showDashTab('Certificates',this)"><i class="fa-solid fa-award"></i> Certificates</button>
+      <button class="dash-tab" onclick="showDashTab('Reviews',this)"><i class="fa-solid fa-star"></i> My Reviews</button>
+    </div>
+    <div class="dash-content">
+      <div class="dash-pane" id="dashOverview">
+        <div class="dash-cards">
+          <div class="dash-info-card">
+            <div class="dic-icon"><i class="fa-solid fa-graduation-cap"></i></div>
+            <div><div class="dic-val" id="dashCertCount">0</div><div class="dic-label">Certificates</div></div>
+          </div>
+          <div class="dash-info-card">
+            <div class="dic-icon"><i class="fa-solid fa-star"></i></div>
+            <div><div class="dic-val" id="dashReviewCount">0</div><div class="dic-label">Reviews Given</div></div>
+          </div>
+          <div class="dash-info-card">
+            <div class="dic-icon"><i class="fa-solid fa-book"></i></div>
+            <div><div class="dic-val">9</div><div class="dic-label">Courses Available</div></div>
+          </div>
+        </div>
+        <div class="dash-welcome-msg">
+          <h3>Welcome to <span class="gold-text">Weber's X World!</span></h3>
+          <p>Your journey to mastery starts here. Attend live classes, complete homework, and earn certificates.</p>
+        </div>
+      </div>
+      <div class="dash-pane" id="dashCertificates" style="display:none;">
+        <div id="dashCertGrid" class="dash-cert-grid"></div>
+      </div>
+      <div class="dash-pane" id="dashReviews" style="display:none;">
+        <div id="dashReviewList" class="dash-review-list"></div>
+      </div>
+    </div>
+    <button class="btn-logout" onclick="signOutUser()"><i class="fa-solid fa-right-from-bracket"></i> Logout</button>
+  </div>
+</div>
+
+<!-- ═══════════════════ COURSE DETAIL PANEL ═══════════════════ -->
+<div class="panel-overlay" id="courseDetailOverlay">
+  <div class="course-detail-panel" id="courseDetailPanel">
+    <button class="panel-close" onclick="closeCourseDetail()"><i class="fa-solid fa-xmark"></i></button>
+    <div class="cdp-inner" id="cdpInner"><!-- Filled by JS --></div>
+  </div>
+</div>
+
+<!-- ═══════════════════ ENROLL PANEL ═══════════════════ -->
+<div class="panel-overlay" id="enrollOverlay">
+  <div class="enroll-panel" id="enrollPanel">
+    <button class="panel-close" onclick="closeEnroll()"><i class="fa-solid fa-xmark"></i></button>
+    <div class="enroll-inner">
+      <div class="enroll-logo"><i class="fa-solid fa-paper-plane"></i></div>
+      <h2>Enroll by <span class="gold-text">Email</span></h2>
+      <p id="enrollCourseName" class="enroll-course-label"></p>
+      <p class="enroll-note">Fill in your details below. We will contact you with joining instructions.</p>
+
+      <div class="form-group">
+        <label><i class="fa-solid fa-user"></i> Your Full Name</label>
+        <input type="text" id="enrollName" class="form-input" placeholder="Enter your full name" />
+      </div>
+      <div class="form-group">
+        <label><i class="fa-solid fa-calendar"></i> Your Age</label>
+        <input type="number" id="enrollAge" class="form-input" placeholder="Enter your age" min="5" max="60" />
+      </div>
+      <div class="form-group">
+        <label><i class="fa-brands fa-whatsapp"></i> WhatsApp Number <span class="wa-note"><i class="fa-solid fa-triangle-exclamation"></i> Please enter carefully.</span></label>
+        <input type="tel" id="enrollWA" class="form-input" placeholder="+91 XXXXXXXXXX" />
+      </div>
+
+      <button class="btn-primary btn-shine" id="makeEmailBtn" onclick="generateEnrollEmail()"><i class="fa-solid fa-envelope-open-text"></i> Make Email</button>
+
+      <div id="emailPreview" style="display:none;">
+        <div class="email-preview-box" id="emailPreviewBox"></div>
+        <a id="sendEmailBtn" href="#" class="btn-gold send-email-btn btn-shine"><i class="fa-solid fa-paper-plane"></i> Send Email to Weber's X World</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════ FAQ PANEL ═══════════════════ -->
+<div class="panel-overlay" id="faqOverlay">
+  <div class="faq-panel">
+    <button class="panel-close" onclick="closeFAQ()"><i class="fa-solid fa-xmark"></i></button>
+    <div class="faq-header">
+      <div class="section-badge"><i class="fa-solid fa-circle-question"></i> Help Center</div>
+      <h2 class="section-title">Frequently Asked <span class="gold-text">Questions</span></h2>
+    </div>
+    <div class="faq-list" id="faqList"></div>
+  </div>
+</div>
+
+<!-- ═══════════════════ FOOTER ═══════════════════ -->
+<footer class="footer">
+  <div class="footer-glow"></div>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="footer-logo-wrap">
+          <div class="footer-logo-text">WX</div>
+        </div>
+        <div class="footer-brand-name">Weber's <span class="gold-text">X</span> World</div>
+        <p class="footer-tagline">Premium online education. Live. Real. Effective.</p>
+        <div class="footer-social">
+          <a href="https://wa.me/917069331761" target="_blank" class="social-btn"><i class="fa-brands fa-whatsapp"></i> WhatsApp Sir</a>
+          <a href="https://wa.me/917069878373" target="_blank" class="social-btn"><i class="fa-brands fa-whatsapp"></i> WhatsApp Mam</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4 class="footer-col-title">Quick Links</h4>
+        <ul class="footer-links">
+          <li><a href="#home"><i class="fa-solid fa-chevron-right"></i> Home</a></li>
+          <li><a href="#courses"><i class="fa-solid fa-chevron-right"></i> Free Courses</a></li>
+          <li><a href="#advanced"><i class="fa-solid fa-chevron-right"></i> Advanced Courses</a></li>
+          <li><a href="#about"><i class="fa-solid fa-chevron-right"></i> About Us</a></li>
+          <li><a href="#certificates"><i class="fa-solid fa-chevron-right"></i> Certificates</a></li>
+          <li><a href="#reviews"><i class="fa-solid fa-chevron-right"></i> Reviews</a></li>
+          <li><a href="#" onclick="openFAQ();return false;"><i class="fa-solid fa-chevron-right"></i> FAQ</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4 class="footer-col-title">Contact</h4>
+        <div class="footer-contact-item"><span><i class="fa-solid fa-envelope"></i> Owner:</span><a href="mailto:webersxworld@gmail.com">webersxworld@gmail.com</a></div>
+        <div class="footer-contact-item"><span><i class="fa-solid fa-envelope"></i> Sir:</span><a href="mailto:salikshaikh278@gmail.com">salikshaikh278@gmail.com</a></div>
+        <div class="footer-contact-item"><span><i class="fa-solid fa-envelope"></i> Mam:</span><a href="mailto:munazzashaikh531@gmail.com">munazzashaikh531@gmail.com</a></div>
+        <!-- <div class="footer-contact-item"><span><i class="fa-solid fa-envelope"></i> Owner:</span><a href="mailto:webersxworld@gmail.com">webersxworld@gmail.com</a></div> -->
+        <div class="footer-contact-item"><span><i class="fa-brands fa-whatsapp"></i> Sir:</span><a href="https://wa.me/917069331761">+91 7069331761</a></div>
+        <div class="footer-contact-item"><span><i class="fa-brands fa-whatsapp"></i> Mam:</span><a href="https://wa.me/917069878373">+91 7069878373</a></div>
+      </div>
+      <div class="footer-col">
+        <h4 class="footer-col-title">Support</h4>
+        <ul class="footer-links">
+          <li><a href="#rules"><i class="fa-solid fa-chevron-right"></i> Important Rules</a></li>
+          <li><a href="#contact"><i class="fa-solid fa-chevron-right"></i> Get Help</a></li>
+          <li><a href="#contact-form"><i class="fa-solid fa-chevron-right"></i> Send Message</a></li>
+          <li><a href="#certificates"><i class="fa-solid fa-chevron-right"></i> Certificates</a></li>
+          <li><a href="#" onclick="openFAQ();return false;"><i class="fa-solid fa-chevron-right"></i> FAQ</a></li>
+        </ul>
+        <div class="footer-note">
+          <p><i class="fa-solid fa-circle-info"></i> Classes are conducted via Google Meet only. No offline sessions available.</p>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 Weber's X World. All Rights Reserved.</p>
+      <p>Built with <i class="fa-solid fa-heart" style="color:var(--gold)"></i> for serious learners.</p>
+    </div>
+  </div>
+</footer>
+
+<!-- ═══════════════════ FLOATING WHATSAPP ═══════════════════ -->
+<div class="floating-wa" id="floatingWA">
+  <button class="fwa-toggle" onclick="toggleWA()" aria-label="WhatsApp">
+    <i class="fa-brands fa-whatsapp"></i>
+  </button>
+  <div class="fwa-panel" id="fwaPanel">
+    <div class="fwa-title">Quick Contact</div>
+    <a href="https://wa.me/917069331761?text=Hello%20Sir" target="_blank" class="fwa-btn"><i class="fa-solid fa-book-open"></i> Chat with Sir</a>
+    <a href="https://wa.me/917069878373?text=Hello%20Mam" target="_blank" class="fwa-btn"><i class="fa-solid fa-palette"></i> Chat with Mam</a>
+  </div>
+</div>
+
+<!-- ═══════════════════ BACK TO TOP ═══════════════════ -->
+<button class="back-to-top" id="backToTop" onclick="scrollToTop()" aria-label="Back to top">
+  <i class="fa-solid fa-chevron-up"></i>
+</button>
+
+<!-- ═══════════════════ TOAST ═══════════════════ -->
+<div id="toast" class="toast"></div>
+
+<!-- ═══════════════════ FIREBASE ═══════════════════ -->
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+  import {
+    getAuth, GoogleAuthProvider, signInWithPopup, onAuthStateChanged, signOut
+  } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+  import {
+    getFirestore, collection, addDoc, getDocs, query, where, doc, setDoc
+  } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyCo6tW8aKIYVgddGk9NXJwlaj5A3kj-5Vo",
+    authDomain: "webers-x-world.firebaseapp.com",
+    projectId: "webers-x-world",
+    storageBucket: "webers-x-world.firebasestorage.app",
+    messagingSenderId: "731350093441",
+    appId: "1:731350093441:web:93b4856d900ef8d97f4780"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const provider = new GoogleAuthProvider();
+  const db = getFirestore(app);
+
+  window._auth = auth;
+  window._db = db;
+
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      window.currentUser = user;
+      document.getElementById('navLoggedOut').style.display = 'none';
+      document.getElementById('navLoggedIn').style.display = 'flex';
+      document.getElementById('navUserAvatar').src = user.photoURL || '';
+      document.getElementById('navUserName').textContent = user.displayName?.split(' ')[0] || 'Student';
+      document.getElementById('certLoggedOut').style.display = 'none';
+      document.getElementById('certLoggedIn').style.display = 'block';
+      document.getElementById('reviewFormLoggedOut').style.display = 'none';
+      document.getElementById('reviewFormLoggedIn').style.display = 'block';
+      loadCertificates(user.email);
+      loadUserReviews();
+    } else {
+      window.currentUser = null;
+      document.getElementById('navLoggedOut').style.display = 'flex';
+      document.getElementById('navLoggedIn').style.display = 'none';
+      document.getElementById('certLoggedOut').style.display = 'block';
+      document.getElementById('certLoggedIn').style.display = 'none';
+      document.getElementById('reviewFormLoggedOut').style.display = 'block';
+      document.getElementById('reviewFormLoggedIn').style.display = 'none';
+    }
+  });
+
+  window.signInGoogle = async () => {
+    try {
+      const result = await signInWithPopup(auth, provider);
+      const user = result.user;
+      window.showToast('Welcome, ' + user.displayName + '!', 'success');
+      await setDoc(doc(db, 'students', user.uid), {
+        name: user.displayName,
+        email: user.email,
+        photo: user.photoURL,
+        lastLogin: new Date().toISOString()
+      }, { merge: true });
+    } catch (e) {
+      console.error(e);
+      window.showToast('Login failed. Try again.', 'error');
+    }
+  };
+
+  window.signOutUser = async () => {
+    await signOut(auth);
+    hideDashboard();
+    window.showToast('Logged out successfully.', 'info');
+    location.reload();
+  };
+
+  const CERT_FOLDERS = [
+    { name: 'Web Design',      url: 'https://webers-x-world.github.io/certificates-2026/webdesign/' },
+    { name: 'Graphic Design',  url: 'https://webers-x-world.github.io/certificates-2026/graphicdesign/' },
+    { name: 'AI Tools',        url: 'https://webers-x-world.github.io/certificates-2026/aitools/' },
+    { name: 'Video Editing',   url: 'https://webers-x-world.github.io/certificates-2026/videoediting/' },
+    { name: 'Basic Computer',  url: 'https://webers-x-world.github.io/certificates-2026/basiccomputer/' }
+  ];
+
+  async function loadCertificates(email) {
+    const grid = document.getElementById('certificatesGrid');
+    const loading = document.getElementById('certLoading');
+    const empty = document.getElementById('certEmpty');
+    if (!grid) return;
+
+    loading.style.display = 'flex';
+    empty.style.display = 'none';
+
+    const username = email.split('@')[0].toLowerCase();
+    const certImageName = username + '.jpg';
+    const found = [];
+
+    const checks = CERT_FOLDERS.map(async (folder) => {
+      const imgUrl = folder.url + certImageName;
+      try {
+        const res = await fetch(imgUrl, { method: 'HEAD' });
+        if (res.ok) {
+          found.push({ course: folder.name, url: imgUrl });
+        }
+      } catch (e) {}
     });
 
-    // ─── Sign In ───
-    window.signInGoogle = async () => {
-      try {
-        const result = await signInWithPopup(auth, provider);
-        const user = result.user;
-        showToast('✅ Welcome, ' + user.displayName + '!', 'success');
-        // Save to Firestore
-        await setDoc(doc(db, 'students', user.uid), {
-          name: user.displayName,
-          email: user.email,
-          photo: user.photoURL,
-          lastLogin: new Date().toISOString()
-        }, { merge: true });
-        // Send welcome email
-        sendWelcomeEmail(user.displayName, user.email);
-      } catch (e) {
-        showToast('Login failed. Try again.', 'error');
+    await Promise.all(checks);
+    loading.style.display = 'none';
+
+    if (found.length === 0) {
+      empty.style.display = 'flex';
+      document.getElementById('dashCertCount').textContent = '0';
+      return;
+    }
+
+    document.getElementById('dashCertCount').textContent = found.length;
+
+    let html = '';
+    found.forEach(cert => {
+      html += `
+        <div class="cert-card tilt-card">
+          <div class="cert-shine"></div>
+          <img src="${cert.url}" alt="${cert.course}" class="cert-img" onclick="viewCertFullscreen('${cert.url}')" />
+          <div class="cert-info">
+            <div class="cert-badge-icon"><i class="fa-solid fa-trophy"></i></div>
+            <h3 class="cert-course">${cert.course}</h3>
+            <p class="cert-issuer">Issued by Weber's X World</p>
+            <div class="cert-btns">
+              <button class="btn-small" onclick="viewCertFullscreen('${cert.url}')"><i class="fa-solid fa-eye"></i> View</button>
+              <a href="${cert.url}" download="${cert.course.replace(' ','_')}_Certificate.jpg" class="btn-small gold-btn"><i class="fa-solid fa-download"></i> Download</a>
+            </div>
+          </div>
+        </div>`;
+    });
+
+    grid.innerHTML = html;
+    const dg = document.getElementById('dashCertGrid');
+    if (dg) dg.innerHTML = html;
+  }
+  window.loadCertificates = loadCertificates;
+
+  window.viewCertFullscreen = function(url) {
+    const win = window.open(url, '_blank');
+    if (!win) {
+      const overlay = document.createElement('div');
+      overlay.className = 'cert-fullscreen-overlay';
+      overlay.innerHTML = `
+        <div class="cert-fullscreen-inner">
+          <button class="cert-fs-close" onclick="this.closest('.cert-fullscreen-overlay').remove()"><i class="fa-solid fa-xmark"></i></button>
+          <img src="${url}" alt="Certificate" class="cert-fs-img" />
+          <a href="${url}" download class="btn-gold btn-shine" style="margin-top:16px;display:inline-block;"><i class="fa-solid fa-download"></i> Download Certificate</a>
+        </div>`;
+      document.body.appendChild(overlay);
+    }
+  };
+
+  async function loadReviews() {
+    const grid = document.getElementById('reviewsGrid');
+    if (!grid) return;
+    try {
+      const snap = await getDocs(collection(db, 'reviews'));
+      if (snap.empty) {
+        grid.innerHTML = '<div class="no-reviews-msg">No reviews yet. Be the first!</div>';
+        return;
       }
-    };
-
-    window.signOutUser = async () => {
-      await signOut(auth);
-      hideDashboard();
-      showToast('👋 Logged out successfully.', 'info');
-    };
-
-    // ─── Load Certificates ───
-    async function loadCertificates(email) {
-      const grid = document.getElementById('certificatesGrid');
-      const loading = document.getElementById('certLoading');
-      const empty = document.getElementById('certEmpty');
-      loading.style.display = 'flex';
-      grid.innerHTML = '';
-      try {
-        const q = query(collection(db, 'certificates'), where('email', '==', email));
-        const snap = await getDocs(q);
-        loading.style.display = 'none';
-        if (snap.empty) {
-          empty.style.display = 'flex';
-          return;
+      let html = '';
+      snap.forEach(d => {
+        const r = d.data();
+        const rating = parseInt(r.rating) || 0;
+        let starsHtml = '';
+        for (let i = 1; i <= 5; i++) {
+          starsHtml += `<i class="fa-solid fa-star rc-star ${i <= rating ? 'active' : ''}"></i>`;
         }
-        snap.forEach(d => {
-          const data = d.data();
-          grid.innerHTML += `
-            <div class="cert-card">
-              <div class="cert-badge">🏆</div>
-              <h3 class="cert-course">${data.course}</h3>
-              <p class="cert-desc">Issued by Weber's X World</p>
-              <div class="cert-btns">
-                <a href="${data.certificateURL}" target="_blank" class="btn-small">View</a>
-                <a href="${data.certificateURL}" download class="btn-small gold-btn">Download</a>
+        html += `
+          <div class="review-card">
+            <div class="rc-glow"></div>
+            <div class="rc-header">
+              <div class="rc-avatar-wrap">
+                <img src="${r.photo || ''}" alt="${r.name}" class="rc-avatar"
+                  onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
+                <div class="rc-avatar-fallback" style="display:none;">${(r.name || 'S').charAt(0).toUpperCase()}</div>
               </div>
-            </div>`;
-        });
-        // Update dashboard count
-        document.getElementById('dashCertCount').textContent = snap.size;
-        // Load into dashboard
-        const dg = document.getElementById('dashCertGrid');
-        dg.innerHTML = grid.innerHTML;
-      } catch(e) {
-        loading.style.display = 'none';
-        empty.style.display = 'flex';
-      }
-    }
-    window.loadCertificates = loadCertificates;
-
-    // ─── Load All Reviews ───
-    async function loadReviews() {
-      const grid = document.getElementById('reviewsGrid');
-      try {
-        const snap = await getDocs(collection(db, 'reviews'));
-        let html = '';
-        snap.forEach(d => {
-          const r = d.data();
-          const stars = '★'.repeat(r.rating) + '☆'.repeat(5 - r.rating);
-          html += `
-            <div class="review-card reveal">
-              <div class="rc-header">
-                <img src="${r.photo || ''}" alt="${r.name}" class="rc-avatar" onerror="this.style.display='none'" />
-                <div>
-                  <div class="rc-name">${r.name}</div>
-                  <div class="rc-course">${r.course}</div>
-                </div>
-                <div class="rc-stars">${stars}</div>
+              <div class="rc-meta">
+                <div class="rc-name">${r.name}</div>
+                <div class="rc-course">${r.course}</div>
               </div>
-              <p class="rc-text">${r.text}</p>
-            </div>`;
-        });
-        grid.innerHTML = html || '<p class="no-reviews">No reviews yet. Be the first!</p>';
-        document.getElementById('dashReviewCount').textContent = snap.size;
-      } catch(e) {}
+            </div>
+            <div class="rc-stars">${starsHtml}</div>
+            <p class="rc-text">${r.text}</p>
+          </div>`;
+      });
+      grid.innerHTML = html + html; // duplicate for infinite loop
+      document.getElementById('dashReviewCount').textContent = snap.size;
+    } catch (e) {
+      console.error('Review load error:', e);
     }
-    loadReviews();
+  }
+  window.loadReviews = loadReviews;
 
-    // ─── Load User's Reviews ───
-    async function loadUserReviews() {
-      if (!window.currentUser) return;
-      const list = document.getElementById('dashReviewList');
-      try {
-        const q = query(collection(db, 'reviews'), where('email', '==', window.currentUser.email));
-        const snap = await getDocs(q);
-        let html = '';
-        snap.forEach(d => {
-          const r = d.data();
-          const stars = '★'.repeat(r.rating) + '☆'.repeat(5 - r.rating);
-          html += `<div class="dash-review-item"><b>${r.course}</b><div class="rc-stars">${stars}</div><p>${r.text}</p></div>`;
-        });
-        list.innerHTML = html || '<p>You haven\'t submitted any reviews yet.</p>';
-      } catch(e) {}
-    }
-    window.loadUserReviews = loadUserReviews;
+  loadReviews();
+  setInterval(loadReviews, 10000);
 
-    // ─── Submit Review ───
-    window.submitReview = async () => {
-      if (!window.currentUser) return showToast('Please login first.', 'error');
-      const course = document.getElementById('reviewCourse').value;
-      const rating = parseInt(document.getElementById('ratingValue').value);
-      const text = document.getElementById('reviewText').value.trim();
-      const msg = document.getElementById('reviewMsg');
-
-      if (!course || !rating || !text) {
-        msg.textContent = '⚠️ Please fill all fields and select a rating.';
-        msg.style.color = '#ff6b6b';
-        return;
-      }
-
-      // Check duplicate
-      const q = query(collection(db, 'reviews'),
-        where('email', '==', window.currentUser.email),
-        where('course', '==', course));
+  async function loadUserReviews() {
+    if (!window.currentUser) return;
+    const list = document.getElementById('dashReviewList');
+    try {
+      const q = query(collection(db, 'reviews'), where('email', '==', window.currentUser.email));
       const snap = await getDocs(q);
-      if (!snap.empty) {
-        msg.textContent = '⚠️ You already reviewed this course.';
-        msg.style.color = '#ff6b6b';
-        return;
-      }
+      let html = '';
+      snap.forEach(d => {
+        const r = d.data();
+        let starsHtml = '';
+        for (let i = 1; i <= (parseInt(r.rating)||0); i++) starsHtml += '<i class="fa-solid fa-star" style="color:var(--gold)"></i>';
+        html += `<div class="dash-review-item"><b>${r.course}</b><div class="rc-stars">${starsHtml}</div><p>${r.text}</p></div>`;
+      });
+      if (list) list.innerHTML = html || '<p>You haven\'t submitted any reviews yet.</p>';
+    } catch (e) {}
+  }
+  window.loadUserReviews = loadUserReviews;
 
-      try {
-        await addDoc(collection(db, 'reviews'), {
-          name: window.currentUser.displayName,
-          email: window.currentUser.email,
-          photo: window.currentUser.photoURL,
-          course, rating, text,
-          timestamp: new Date().toISOString()
-        });
-        msg.textContent = '✅ Review submitted! Thank you.';
-        msg.style.color = '#c9a227';
-        document.getElementById('reviewText').value = '';
-        document.getElementById('reviewCourse').value = '';
-        document.getElementById('ratingValue').value = '0';
-        document.querySelectorAll('.star').forEach(s => s.classList.remove('active'));
-        loadReviews();
-      } catch(e) {
+  window.submitReview = async () => {
+    if (!window.currentUser) return window.showToast('Please login first.', 'error');
+    const course = document.getElementById('reviewCourse').value;
+    const rating = parseInt(document.getElementById('ratingValue').value);
+    const text = document.getElementById('reviewText').value.trim();
+    const msg = document.getElementById('reviewMsg');
 
-  console.error(e);
+    if (!course) { msg.textContent = 'Please select a course.'; msg.style.color = '#ff6b6b'; return; }
+    if (!rating || rating === 0) { msg.textContent = 'Please select a rating.'; msg.style.color = '#ff6b6b'; return; }
+    if (!text) { msg.textContent = 'Please write your review.'; msg.style.color = '#ff6b6b'; return; }
 
-  msg.textContent = e.message;
+    const q = query(collection(db, 'reviews'),
+      where('email', '==', window.currentUser.email),
+      where('course', '==', course));
+    const snap = await getDocs(q);
+    if (!snap.empty) {
+      msg.textContent = 'You already reviewed this course.';
+      msg.style.color = '#ff6b6b';
+      return;
+    }
 
-  msg.style.color = '#ff6b6b';
+    try {
+      await addDoc(collection(db, 'reviews'), {
+        name: window.currentUser.displayName,
+        email: window.currentUser.email,
+        photo: window.currentUser.photoURL,
+        course, rating, text,
+        timestamp: new Date().toISOString()
+      });
+      msg.textContent = 'Review submitted! Thank you.';
+      msg.style.color = '#c9a227';
+      document.getElementById('reviewText').value = '';
+      document.getElementById('reviewCourse').value = '';
+      document.getElementById('ratingValue').value = '0';
+      document.querySelectorAll('.star').forEach(s => s.classList.remove('active'));
+      setTimeout(() => loadReviews(), 3000);
+    } catch (e) {
+      msg.textContent = e.message;
+      msg.style.color = '#ff6b6b';
+    }
+  };
 
-}
-    };
-  </script>
+  setInterval(() => {
+    if (window.currentUser) loadCertificates(window.currentUser.email);
+  }, 10000);
+</script>
 
-  <script type="module" src="firebase-auth.js"></script>
 <script src="script.js"></script>
 </body>
 </html>
