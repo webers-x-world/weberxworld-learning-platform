@@ -373,7 +373,7 @@ function renderAdvancedCourses() {
         </div>
         <div class="course-card-body">
           <div class="course-name">${course.name}</div>
-          <div class="course-duration-tag">💎 ${course.duration}</div>
+          <div class="course-duration-tag">⏱ ${course.duration}</div>
           <p class="course-desc">${course.desc}</p>
           <div class="course-teacher-line">
             <div class="ct-avatar">${course.teacherInitial}</div>
@@ -402,14 +402,11 @@ window.openCourseDetail = function(id, type) {
 
   const noticeHTML = type === 'free'
     ? `<div class="course-notice red-notice">
-        ⚠️ These free courses are designed only for basic knowledge and learning foundations. 
-        <strong>Certificates are NOT provided for free courses.</strong>
+        <p><strong>⚠️ Note:</strong> These free courses are designed for basic knowledge and learning foundations. Certificates are <strong>NOT</strong> provided for free courses.</p>
        </div>`
     : `<div class="course-notice green-notice">
-        ✅ Students who successfully complete this advanced course will receive an 
-        <strong>official certificate from Weber's X World.</strong>
-        <br/><br/>
-        📌 Depending on student performance and hard work, the course may be completed earlier than the maximum duration.
+        <p><strong>✅ Certificate Awarded:</strong> Students who successfully complete this advanced course will receive an official certificate from Weber's X World.</p>
+        <p><strong>📌 Duration Note:</strong> Depending on student performance and hard work, the course may be completed earlier than the maximum duration.</p>
        </div>`;
 
   const topicsHTML = course.topics.map(t =>
@@ -548,6 +545,44 @@ window.generateEnrollEmail = function() {
 
   showToast('Email ready! Click "Send Email" to open your mail app.', 'success');
 };
+
+// ═══════════════════════ REVIEWS SIDE PANEL ═══════════════════════
+window.openReviewsPanel = function() {
+  const overlay = document.getElementById('reviewsPanelOverlay');
+  const list = document.getElementById('reviewsSidePanelList');
+
+  // Populate from current marquee reviews
+  const marquee = document.getElementById('reviewsGrid');
+  const cards = marquee ? marquee.querySelectorAll('.review-card') : [];
+
+  // Deduplicate (marquee has items doubled for infinite scroll)
+  const half = Math.ceil(cards.length / 2);
+  let html = '';
+  const slice = Array.from(cards).slice(0, half || cards.length);
+
+  if (slice.length === 0) {
+    html = '<p style="color:var(--text-muted);text-align:center;padding:40px 0;">No reviews yet.</p>';
+  } else {
+    slice.forEach((card, i) => {
+      html += `<div class="rsp-review-card" style="animation-delay:${i * 0.06}s">${card.innerHTML}</div>`;
+    });
+  }
+  list.innerHTML = html;
+
+  overlay.style.display = 'flex';
+  requestAnimationFrame(() => overlay.classList.add('open'));
+  document.body.style.overflow = 'hidden';
+};
+
+window.closeReviewsPanel = function() {
+  const overlay = document.getElementById('reviewsPanelOverlay');
+  overlay.classList.remove('open');
+  setTimeout(() => { overlay.style.display = 'none'; document.body.style.overflow = ''; }, 500);
+};
+
+document.getElementById('reviewsPanelOverlay').addEventListener('click', e => {
+  if (e.target === document.getElementById('reviewsPanelOverlay')) closeReviewsPanel();
+});
 
 // ═══════════════════════ FAQ SYSTEM ═══════════════════════
 function renderFAQ() {
@@ -690,6 +725,7 @@ document.addEventListener('keydown', e => {
     closeCourseDetail();
     closeEnroll();
     closeFAQ();
+    closeReviewsPanel();
     hideDashboard();
   }
 });
