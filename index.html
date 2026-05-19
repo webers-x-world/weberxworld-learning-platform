@@ -147,7 +147,7 @@
     </div>
     <div class="hero-btns reveal">
       <a href="#courses" class="btn-primary btn-shine">Explore Courses <i class="fa-solid fa-arrow-right"></i></a>
-      <button class="btn-outline" onclick="signInGoogle()"><i class="fa-brands fa-google"></i> Join Free Now</button>
+      <a class="btn-outline" href="#courses" style="text-decoration: none;"><i class="fa-brands fa-google"></i> Join Free Now</a>
     </div>
   </div>
   <div class="hero-scroll-hint">
@@ -254,7 +254,7 @@
           <img src="weber's-x-world.png" alt="Logo" class="about-logo" onerror="this.style.display='none';" />
         </div>
         <div class="about-badges">
-          <div class="about-badge"><i class="fa-solid fa-graduation-cap"></i> Est. 2024</div>
+          <div class="about-badge"><i class="fa-solid fa-graduation-cap"></i> Est. 2026</div>
           <div class="about-badge"><i class="fa-solid fa-signal"></i> 100% Online</div>
           <div class="about-badge"><i class="fa-solid fa-video"></i> Live Classes</div>
         </div>
@@ -358,6 +358,13 @@
       <div class="reviews-marquee" id="reviewsGrid">
         <div class="reviews-loading-msg"><i class="fa-solid fa-spinner fa-spin"></i> Loading reviews...</div>
       </div>
+    </div>
+
+    <!-- View More Reviews Button -->
+    <div class="view-more-reviews-wrap reveal">
+      <button class="btn-view-more-reviews btn-shine" onclick="openReviewsPanel()">
+        <i class="fa-solid fa-list-ul"></i> View More Reviews
+      </button>
     </div>
 
     <!-- Submit Review -->
@@ -471,7 +478,7 @@
           <p class="cf-info-sub">We respond to every message within 24 hours. Let's start your learning journey today.</p>
           <div class="cf-info-items">
             <div class="cf-info-item"><div class="cf-info-icon"><i class="fa-solid fa-envelope"></i></div><span>webersxworld@gmail.com</span></div>
-            <div class="cf-info-item"><div class="cf-info-icon"><i class="fa-brands fa-whatsapp"></i></div><span>+91 70693 31761</span></div>
+            <!-- <div class="cf-info-item"><div class="cf-info-icon"><i class="fa-brands fa-whatsapp"></i></div><span>+91 70693 31761</span></div> -->
             <div class="cf-info-item"><div class="cf-info-icon"><i class="fa-solid fa-video"></i></div><span>100% Live on Google Meet</span></div>
             <div class="cf-info-item"><div class="cf-info-icon"><i class="fa-solid fa-graduation-cap"></i></div><span>Free &amp; Advanced Courses</span></div>
           </div>
@@ -619,6 +626,21 @@
   </div>
 </div>
 
+<!-- ═══════════════════ REVIEWS SIDE PANEL ═══════════════════ -->
+<div class="panel-overlay" id="reviewsPanelOverlay">
+  <div class="reviews-side-panel" id="reviewsSidePanel">
+    <button class="panel-close reviews-panel-close" onclick="closeReviewsPanel()"><i class="fa-solid fa-xmark"></i></button>
+    <div class="rsp-header">
+      <div class="section-badge"><i class="fa-solid fa-star"></i> All Reviews</div>
+      <h2 class="rsp-title">Student <span class="gold-text">Reviews</span></h2>
+      <p class="rsp-sub">Real feedback from real learners.</p>
+    </div>
+    <div class="rsp-list" id="reviewsSidePanelList">
+      <div class="reviews-loading-msg"><i class="fa-solid fa-spinner fa-spin"></i> Loading...</div>
+    </div>
+  </div>
+</div>
+
 <!-- ═══════════════════ FAQ PANEL ═══════════════════ -->
 <div class="panel-overlay" id="faqOverlay">
   <div class="faq-panel">
@@ -643,8 +665,8 @@
         <div class="footer-brand-name">Weber's <span class="gold-text">X</span> World</div>
         <p class="footer-tagline">Premium online education. Live. Real. Effective.</p>
         <div class="footer-social">
-          <a href="https://wa.me/917069331761" target="_blank" class="social-btn"><i class="fa-brands fa-whatsapp"></i> WhatsApp Sir</a>
-          <a href="https://wa.me/917069878373" target="_blank" class="social-btn"><i class="fa-brands fa-whatsapp"></i> WhatsApp Mam</a>
+          <a href="https://wa.me/917069331761" target="_blank" class="social-btn"><i class="fa-brands fa-whatsapp"></i> Message Sir Salik</a>
+          <a href="https://wa.me/917069878373" target="_blank" class="social-btn"><i class="fa-brands fa-whatsapp"></i> Message Mam Munazza</a>
         </div>
       </div>
       <div class="footer-col">
@@ -684,7 +706,7 @@
     </div>
     <div class="footer-bottom">
       <p>&copy; 2026 Weber's X World. All Rights Reserved.</p>
-      <p>Built with <i class="fa-solid fa-heart" style="color:var(--gold)"></i> for serious learners.</p>
+      <p>Crafted with precision. Powered by purpose.</p>
     </div>
   </div>
 </footer>
@@ -870,10 +892,6 @@
     if (!grid) return;
     try {
       const snap = await getDocs(collection(db, 'reviews'));
-      if (snap.empty) {
-        grid.innerHTML = '<div class="no-reviews-msg">No reviews yet. Be the first!</div>';
-        return;
-      }
       let html = '';
       snap.forEach(d => {
         const r = d.data();
