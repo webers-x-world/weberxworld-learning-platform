@@ -97,32 +97,29 @@ body {
 }
 
 /* ═══════════════════════ CURSOR ═══════════════════════ */
+/* ─── Premium Cursor ─── */
 .cursor-dot {
-  width: 6px; height: 6px;
+  width: 10px; height: 10px;
   background: var(--gold-bright);
-  border-radius: 50%; position: fixed;
+  border-radius: 50%;
+  position: fixed; top: 0; left: 0;
   pointer-events: none; z-index: 99999;
-  box-shadow: 0 0 10px var(--gold-bright), 0 0 24px var(--gold), 0 0 48px rgba(201,162,39,0.3);
-  transition: transform 0.08s;
-  will-change: left, top;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 0 14px var(--gold-bright), 0 0 32px rgba(201,162,39,0.5);
+  transition: transform 0.06s linear, width 0.2s, height 0.2s, background 0.2s;
+  will-change: transform;
 }
-.cursor-ring {
-  width: 34px; height: 34px;
-  border: 1.5px solid rgba(201,162,39,0.6);
-  border-radius: 50%; position: fixed;
-  pointer-events: none; z-index: 99998;
-  background: rgba(201,162,39,0.03);
-  transition: width 0.3s cubic-bezier(0.4,0,0.2,1),
-              height 0.3s cubic-bezier(0.4,0,0.2,1),
-              border-color 0.3s;
-  will-change: left, top;
+.cursor-dot.hover {
+  width: 18px; height: 18px;
+  background: transparent;
+  border: 2px solid var(--gold-bright);
+  box-shadow: 0 0 20px rgba(201,162,39,0.6);
 }
-.cursor-ring.hovering {
-  width: 52px; height: 52px;
-  border-color: var(--gold);
-  background: rgba(201,162,39,0.06);
-  box-shadow: 0 0 16px rgba(201,162,39,0.2);
+.cursor-dot.click {
+  width: 6px; height: 6px;
+  box-shadow: 0 0 24px var(--gold-bright);
 }
+
 
 /* ═══════════════════════ LOADING SCREEN ═══════════════════════ */
 #loadingScreen {
@@ -1214,6 +1211,16 @@ body {
 
 /* ═══════════════════════ CONTACT ═══════════════════════ */
 .contact-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+/* Single card centering */
+.contact-single {
+  display: flex !important;
+  justify-content: center;
+  align-items: center;
+}
+.contact-single .contact-card {
+  width: 100%;
+  max-width: 380px;
+}
 .contact-card {
   background: var(--glass-bg); border: 1px solid var(--glass-border);
   border-radius: var(--radius-lg); padding: 38px 28px;
@@ -1405,37 +1412,6 @@ body {
 }
 
 /* ═══════════════════════ FLOATING WHATSAPP ═══════════════════════ */
-.floating-wa {
-  position: fixed; bottom: 28px; right: 28px; z-index: 500;
-  display: flex; flex-direction: column; align-items: flex-end; gap: 10px;
-}
-.fwa-toggle {
-  width: 56px; height: 56px; border-radius: 50%;
-  background: linear-gradient(135deg, #25d366, #1aa855); border: none;
-  font-size: 1.6rem; color: #fff; cursor: pointer;
-  box-shadow: 0 4px 24px rgba(37,211,102,0.45);
-  transition: var(--transition); display: flex; align-items: center; justify-content: center;
-}
-.fwa-toggle:hover { transform: scale(1.1) rotate(-10deg); box-shadow: 0 8px 36px rgba(37,211,102,0.55); }
-.fwa-panel {
-  display: none; flex-direction: column; gap: 8px;
-  background: rgba(4,9,24,0.98); border: 1px solid var(--glass-border);
-  border-radius: var(--radius-md); padding: 16px; min-width: 190px;
-  backdrop-filter: var(--glass-blur2);
-  box-shadow: 0 12px 40px rgba(0,0,0,0.5);
-  animation: dropIn 0.25s cubic-bezier(0.4,0,0.2,1);
-}
-.fwa-panel.open { display: flex; }
-.fwa-title { font-family: var(--font-head); font-size: 0.68rem; font-weight: 700; color: var(--gold); letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 4px; }
-.fwa-btn {
-  display: flex; align-items: center; gap: 8px;
-  padding: 10px 14px;
-  background: rgba(37,211,102,0.09); border: 1px solid rgba(37,211,102,0.18);
-  border-radius: var(--radius-sm); color: #25d366; font-size: 0.8rem;
-  font-weight: 600; font-family: var(--font-body); text-decoration: none; transition: var(--transition);
-}
-.fwa-btn:hover { background: rgba(37,211,102,0.18); transform: translateX(4px); }
-
 /* ═══════════════════════ BACK TO TOP ═══════════════════════ */
 .back-to-top {
   position: fixed; bottom: 96px; right: 28px; z-index: 500;
@@ -1504,7 +1480,7 @@ body {
 
 @media (max-width: 768px) {
   body { cursor: auto; }
-  .cursor-dot, .cursor-ring { display: none; }
+  .cursor-dot { display: none; }
   #navbar {
     padding: 0 12px;
     height: 60px;
@@ -1570,7 +1546,7 @@ body {
   .faq-list { padding: 0 18px 52px; }
   .hero-title { font-size: 2.5rem; }
   .back-to-top { bottom: 88px; right: 18px; }
-  .floating-wa { bottom: 18px; right: 18px; }
+  
   .orb { display: none; }
 }
 
@@ -1586,7 +1562,7 @@ body {
   #navbar { padding: 0 10px; height: 56px; }
   .nav-links { top: 56px; }
   .btn-gold { padding: 7px 11px; font-size: 0.68rem; }
-  .reviews-side-panel { max-width: 100%; }
+  .reviews-side-panel { max-width: 100%;}
   .rsp-list { padding: 20px 16px 48px; }
   .rsp-header { padding: 50px 20px 22px; }
   .faq-panel { max-width: 100%; }
@@ -1879,4 +1855,121 @@ body {
   .cf-form-col { padding: 28px 22px; }
   .cf-info-col { padding: 28px 22px; }
   .cf-info-title { font-size: 1.5rem; }
+}
+
+/* ═══════════════════════ SIGN IN MODAL ═══════════════════════ */
+.signin-modal-overlay {
+  position: fixed; inset: 0; z-index: 99990;
+  background: rgba(1, 4, 9, 0.85);
+  backdrop-filter: blur(12px);
+  display: flex; align-items: center; justify-content: center;
+  padding: 20px;
+  opacity: 0; visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+.signin-modal-overlay.open { opacity: 1; visibility: visible; }
+
+.signin-modal {
+  position: relative;
+  background: linear-gradient(145deg, rgba(7,18,40,0.98) 0%, rgba(4,10,24,0.99) 100%);
+  border: 1px solid rgba(201,162,39,0.25);
+  border-radius: 24px;
+  padding: 44px 36px 36px;
+  width: 100%; max-width: 420px;
+  box-shadow: 0 32px 80px rgba(0,0,0,0.7), 0 0 60px rgba(201,162,39,0.08);
+  transform: translateY(20px) scale(0.97);
+  transition: transform 0.35s cubic-bezier(0.34,1.56,0.64,1);
+}
+.signin-modal-overlay.open .signin-modal { transform: translateY(0) scale(1); }
+
+.signin-modal-close {
+  position: absolute; top: 16px; right: 16px;
+  width: 36px; height: 36px; border-radius: 50%;
+  background: rgba(201,162,39,0.08); border: 1px solid rgba(201,162,39,0.2);
+  color: var(--gold); font-size: 1rem; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: var(--transition);
+}
+.signin-modal-close:hover { background: rgba(201,162,39,0.18); transform: rotate(90deg); }
+
+/* signin-modal-logo defined below */
+
+.signin-modal-title {
+  font-family: var(--font-title); font-size: 1.6rem; font-weight: 700;
+  color: var(--white); text-align: center; margin-bottom: 4px;
+}
+.signin-modal-sub {
+  font-family: var(--font-body); font-size: 0.95rem; color: var(--text-muted);
+  text-align: center; margin-bottom: 24px;
+}
+
+.signin-google-btn {
+  width: 100%; display: flex; align-items: center; justify-content: center; gap: 12px;
+  padding: 13px 20px;
+  background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 12px; color: var(--white);
+  font-family: var(--font-body); font-size: 0.95rem; font-weight: 600;
+  cursor: pointer; transition: var(--transition);
+}
+.signin-google-btn:hover {
+  background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.3);
+  transform: translateY(-1px);
+}
+
+.signin-divider {
+  display: flex; align-items: center; gap: 12px;
+  margin: 20px 0; color: var(--text-muted); font-size: 0.82rem;
+}
+.signin-divider::before, .signin-divider::after {
+  content: ''; flex: 1; height: 1px; background: rgba(201,162,39,0.15);
+}
+
+.signin-field { margin-bottom: 16px; }
+.signin-field label {
+  display: block; font-family: var(--font-body); font-size: 0.82rem;
+  color: var(--gold); font-weight: 600; margin-bottom: 7px;
+  letter-spacing: 0.04em;
+}
+.signin-field label i { margin-right: 6px; }
+.signin-input {
+  width: 100%; padding: 12px 16px;
+  background: rgba(255,255,255,0.04); border: 1px solid rgba(201,162,39,0.2);
+  border-radius: 10px; color: var(--white);
+  font-family: var(--font-body); font-size: 0.95rem;
+  outline: none; transition: var(--transition);
+}
+.signin-input::placeholder { color: rgba(90,106,138,0.7); }
+.signin-input:focus { border-color: var(--gold); background: rgba(201,162,39,0.04); box-shadow: 0 0 0 3px rgba(201,162,39,0.1); }
+
+.signin-error {
+  background: rgba(255,107,107,0.1); border: 1px solid rgba(255,107,107,0.3);
+  border-radius: 8px; color: #ff8080; font-size: 0.85rem;
+  padding: 10px 14px; margin-bottom: 14px; font-family: var(--font-body);
+}
+
+.signin-submit-btn {
+  width: 100%; padding: 14px;
+  background: linear-gradient(135deg, var(--gold-bright) 0%, var(--gold-soft) 100%);
+  border: none; border-radius: 12px; color: var(--navy-deepest);
+  font-family: var(--font-head); font-size: 0.88rem; font-weight: 700;
+  letter-spacing: 0.06em; cursor: pointer;
+  transition: var(--transition); margin-top: 8px;
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+}
+.signin-submit-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(201,162,39,0.4); }
+.signin-submit-btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+
+/* ─── Sign In Modal Logo — Circle ─── */
+.signin-modal-logo { text-align: center; margin-bottom: 16px; }
+.signin-modal-logo-img {
+  width: 64px; height: 64px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 2px solid rgba(201,162,39,0.35);
+  box-shadow: 0 0 20px rgba(201,162,39,0.25);
+  background: var(--navy-mid);
+}
+@media (max-width: 480px) {
+  .signin-modal { padding: 36px 22px 28px; border-radius: 18px; }
+  .signin-modal-title { font-size: 1.35rem; }
 }
