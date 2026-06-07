@@ -1338,7 +1338,7 @@ body {
   display: grid; grid-template-columns: 2fr 1fr 1.5fr 1.2fr; gap: 52px; margin-bottom: 64px;
 }
 .footer-logo-wrap {
-  width: 58px; height: 58px; border-radius: 50%;
+  width: 58px !important; height: 58px !important; border-radius: 50% !important;
   background: linear-gradient(135deg, var(--gold), var(--gold-soft));
   display: flex; align-items: center; justify-content: center; margin-bottom: 18px;
   box-shadow: 0 0 24px var(--gold-glow);
