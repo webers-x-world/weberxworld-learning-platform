@@ -14,7 +14,7 @@ const FREE_COURSES = [
     name: 'Basic of Computer',
     type: 'FREE',
     duration: 'Maximum 10 Days',
-    teacher: 'Salik',
+    teacher: 'Sir',
     teacherInitial: 'S',
     teacherWA: '917069331761',
     desc: 'Start your digital journey from scratch. Learn essential computer skills used in everyday professional life.',
@@ -28,7 +28,7 @@ const FREE_COURSES = [
     name: 'Web Design',
     type: 'FREE',
     duration: 'Maximum 10 Days',
-    teacher: 'Salik',
+    teacher: 'Sir',
     teacherInitial: 'S',
     teacherWA: '917069331761',
     desc: 'Build beautiful websites from scratch. HTML, CSS, responsive design — live and hands-on.',
@@ -42,7 +42,7 @@ const FREE_COURSES = [
     name: 'Graphic Design',
     type: 'FREE',
     duration: 'Maximum 10 Days',
-    teacher: 'Munazza',
+    teacher: 'Mam',
     teacherInitial: 'M',
     teacherWA: '917069878373',
     desc: 'Unleash your creativity. Learn design fundamentals, color theory, typography, and pro tools.',
@@ -56,7 +56,7 @@ const FREE_COURSES = [
     name: 'Video Editing',
     type: 'FREE',
     duration: 'Maximum 10 Days',
-    teacher: 'Munazza',
+    teacher: 'Mam',
     teacherInitial: 'M',
     teacherWA: '917069878373',
     desc: 'Transform raw footage into cinematic stories. Cuts, transitions, color grading, and more.',
@@ -73,7 +73,7 @@ const ADVANCED_COURSES = [
     name: 'Advanced Computer & MS Office',
     type: 'ADVANCED',
     duration: 'Maximum 2 Months',
-    teacher: 'Salik',
+    teacher: 'Sir',
     teacherInitial: 'S',
     teacherWA: '917069331761',
     price: '₹2499',
@@ -88,7 +88,7 @@ const ADVANCED_COURSES = [
     name: 'Advanced Web Design & Development',
     type: 'ADVANCED',
     duration: 'Maximum 2 Months',
-    teacher: 'Salik',
+    teacher: 'Sir',
     teacherInitial: 'S',
     teacherWA: '917069331761',
     price: '₹2499',
@@ -103,7 +103,7 @@ const ADVANCED_COURSES = [
     name: 'Advanced Graphic Design',
     type: 'ADVANCED',
     duration: 'Maximum 2 Months',
-    teacher: 'Munazza',
+    teacher: 'Mam',
     teacherInitial: 'M',
     teacherWA: '917069878373',
     price: '₹2499',
@@ -118,7 +118,7 @@ const ADVANCED_COURSES = [
     name: 'Advanced AI Tools & Automation',
     type: 'ADVANCED',
     duration: 'Maximum 2 Months',
-    teacher: 'Salik & Munazza',
+    teacher: 'Sir & Mam',
     teacherInitial: 'S',
     teacherWA: '917069331761',
     price: '₹2499',
@@ -133,7 +133,7 @@ const ADVANCED_COURSES = [
     name: 'Advanced Video Editing & Production',
     type: 'ADVANCED',
     duration: 'Maximum 2 Months',
-    teacher: 'Munazza',
+    teacher: 'Mam',
     teacherInitial: 'M',
     teacherWA: '917069878373',
     price: '₹2499',
@@ -161,7 +161,7 @@ const FAQ_DATA = [
   { q: 'Is Weber\'s X World fully online?', a: 'Yes, 100% online. We are a fully digital organization with no physical office or offline classes. All communication and learning happens online via Google Meet and email.' },
   { q: 'Can I use mobile for classes?', a: 'Yes, you can attend classes on mobile using the Google Meet app. However, for assignments and practical work, a laptop or desktop computer is strongly recommended.' },
   { q: 'Do advanced courses include projects?', a: 'Yes! Advanced courses include real-world projects that you complete during the course. These projects form part of your portfolio and are evaluated before the certificate is issued.' },
-  { q: 'Can I contact teachers directly?', a: 'Yes! You can contact Sir Salik via email at salikshaikh278@gmail.com or WhatsApp at +91 7069331761. For Mam Munazza: munazzashaikh531@gmail.com or +91 7069878373.' }
+  { q: 'Can I contact teachers directly?', a: 'Yes! You can reach us via email at webersxworld@gmail.com. Our team will get back to you within 24 hours.' }
 ];
 
 // ═══════════════════════ CURRENT ENROLL COURSE ═══════════════════════
@@ -175,33 +175,31 @@ window.addEventListener('load', () => {
   }, 2400);
 });
 
-// ═══════════════════════ CUSTOM CURSOR ═══════════════════════
-const cursorDot = document.getElementById('cursorDot');
-const cursorRing = document.getElementById('cursorRing');
-let mx = 0, my = 0, rx = 0, ry = 0;
-
-document.addEventListener('mousemove', e => {
-  mx = e.clientX; my = e.clientY;
-  if (cursorDot) { cursorDot.style.left = mx - 4 + 'px'; cursorDot.style.top = my - 4 + 'px'; }
-});
-
-function animateCursor() {
-  rx += (mx - rx) * 0.14; ry += (my - ry) * 0.14;
-  if (cursorRing) { cursorRing.style.left = rx - 16 + 'px'; cursorRing.style.top = ry - 16 + 'px'; }
-  requestAnimationFrame(animateCursor);
-}
-animateCursor();
-
-document.addEventListener('mouseover', e => {
-  if (e.target.matches('a, button, .course-card, .rule-card, .faq-item')) {
-    if (cursorRing) { cursorRing.style.width = '48px'; cursorRing.style.height = '48px'; }
+// ═══════════════════════ CUSTOM CURSOR (Premium) ═══════════════════════
+(function initCursor() {
+  const dot = document.getElementById('cursorDot');
+  if (!dot || window.matchMedia('(pointer: coarse)').matches) {
+    if (dot) dot.style.display = 'none';
+    return;
   }
-});
-document.addEventListener('mouseout', e => {
-  if (e.target.matches('a, button, .course-card, .rule-card, .faq-item')) {
-    if (cursorRing) { cursorRing.style.width = '32px'; cursorRing.style.height = '32px'; }
-  }
-});
+  let mx = 0, my = 0;
+  document.addEventListener('mousemove', e => {
+    mx = e.clientX; my = e.clientY;
+    dot.style.transform = `translate(${mx}px, ${my}px)`;
+  });
+  document.addEventListener('mousedown', () => dot.classList.add('click'));
+  document.addEventListener('mouseup', () => dot.classList.remove('click'));
+  document.addEventListener('mouseover', e => {
+    if (e.target.closest('a, button, .course-card, .rule-card, .faq-item, .tilt-card')) {
+      dot.classList.add('hover');
+    }
+  });
+  document.addEventListener('mouseout', e => {
+    if (e.target.closest('a, button, .course-card, .rule-card, .faq-item, .tilt-card')) {
+      dot.classList.remove('hover');
+    }
+  });
+})();
 
 // ═══════════════════════ PARTICLES ═══════════════════════
 (function initParticles() {
@@ -704,11 +702,6 @@ window.showDashTab = function(tab, btn) {
 document.getElementById('dashboardOverlay').addEventListener('click', e => {
   if (e.target === document.getElementById('dashboardOverlay')) hideDashboard();
 });
-
-// ═══════════════════════ FLOATING WHATSAPP ═══════════════════════
-window.toggleWA = function() {
-  document.getElementById('fwaPanel').classList.toggle('open');
-};
 
 // ═══════════════════════ TOAST ═══════════════════════
 window.showToast = function(msg, type = 'info') {
