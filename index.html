@@ -378,7 +378,7 @@
       <div class="about-content reveal">
         <div class="section-badge"><i class="fa-solid fa-building"></i> About Us</div>
         <h2 class="section-title">What is <span class="gold-text">Weber's X World?</span></h2>
-        <p>Weber's X World is a premium online educational organization founded by <strong>Sir</strong> and <strong>Mam</strong> — two passionate educators committed to delivering real, practical knowledge through live interactive sessions.</p>
+        <p>Weber's X World is a premium online educational organization founded by <strong>Salik</strong> and <strong>Munazza</strong> — two passionate educators committed to delivering real, practical knowledge through live interactive sessions.</p>
         <p>We believe education should be <span class="gold-text">accessible</span>, <span class="gold-text">high-quality</span>, and <span class="gold-text">results-driven</span>. That's why we offer completely free basic courses — no hidden fees, no recorded lectures, just live Google Meet sessions with real teachers.</p>
 
         <div class="kashiful-card reveal">
@@ -405,15 +405,15 @@
           <div class="teacher-card tilt-card">
             <div class="teacher-avatar">S</div>
             <div>
-              <div class="teacher-name">Sir</div>
-              <div class="teacher-subjects">Computer · Web Design · AI Tools</div>
+              <div class="teacher-name">Salik</div>
+              <div class="teacher-subjects">Passionate Educator</div>
             </div>
           </div>
           <div class="teacher-card tilt-card">
             <div class="teacher-avatar">M</div>
             <div>
-              <div class="teacher-name">Mam</div>
-              <div class="teacher-subjects">Graphic Design · Video Editing</div>
+              <div class="teacher-name">Munazza</div>
+              <div class="teacher-subjects">Passionate Educator</div>
             </div>
           </div>
         </div>
@@ -1085,7 +1085,7 @@
             <p class="cert-issuer">Issued by Weber's X World</p>
             <div class="cert-btns">
               <button class="btn-small" onclick="viewCertFullscreen('${cert.url}')"><i class="fa-solid fa-eye"></i> View</button>
-              <a href="${cert.url}" download="${cert.course.replace(' ','_')}_Certificate.jpg" class="btn-small gold-btn"><i class="fa-solid fa-download"></i> Download</a>
+              <button class="btn-small gold-btn" onclick="downloadCert('${cert.url}','${cert.course.replace(/'/g,"\\'")}')"><i class="fa-solid fa-download"></i> Download</button>
             </div>
           </div>
         </div>`;
@@ -1097,6 +1097,23 @@
   }
   window.loadCertificates = loadCertificates;
 
+  window.downloadCert = async function(url, courseName) {
+    try {
+      const response = await fetch(url);
+      const blob = await response.blob();
+      const blobUrl = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = blobUrl;
+      a.download = courseName.replace(/\s+/g,'_') + '_Certificate.jpg';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      setTimeout(() => URL.revokeObjectURL(blobUrl), 2000);
+    } catch(e) {
+      window.open(url, '_blank');
+    }
+  };
+
   window.viewCertFullscreen = function(url) {
     const win = window.open(url, '_blank');
     if (!win) {
@@ -1106,7 +1123,7 @@
         <div class="cert-fullscreen-inner">
           <button class="cert-fs-close" onclick="this.closest('.cert-fullscreen-overlay').remove()"><i class="fa-solid fa-xmark"></i></button>
           <img src="${url}" alt="Certificate" class="cert-fs-img" />
-          <a href="${url}" download class="btn-gold btn-shine" style="margin-top:16px;display:inline-block;"><i class="fa-solid fa-download"></i> Download Certificate</a>
+          <button onclick="downloadCert('${url}','Certificate')" class="btn-gold btn-shine" style="margin-top:16px;display:inline-block;border:none;cursor:pointer;padding:12px 28px;"><i class="fa-solid fa-download"></i> Download Certificate</button>
         </div>`;
       document.body.appendChild(overlay);
     }
