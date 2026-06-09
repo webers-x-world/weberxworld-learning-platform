@@ -14,8 +14,8 @@ const FREE_COURSES = [
     name: 'Basic of Computer',
     type: 'FREE',
     duration: 'Maximum 10 Days',
-    teacher: 'Sir',
-    teacherInitial: 'S',
+    teacher: 'Passionate Educators',
+    teacherInitial: '',
     teacherWA: '917069331761',
     desc: 'Start your digital journey from scratch. Learn essential computer skills used in everyday professional life.',
     longDesc: 'Kickstart your digital journey with a solid foundation. This course covers everything you need to confidently use a computer — from basics to essential productivity tools, all taught live by an expert teacher.',
@@ -28,8 +28,8 @@ const FREE_COURSES = [
     name: 'Web Design',
     type: 'FREE',
     duration: 'Maximum 10 Days',
-    teacher: 'Sir',
-    teacherInitial: 'S',
+    teacher: 'Passionate Educators',
+    teacherInitial: '',
     teacherWA: '917069331761',
     desc: 'Build beautiful websites from scratch. HTML, CSS, responsive design — live and hands-on.',
     longDesc: 'Learn to build beautiful, functional websites from the ground up. This course teaches HTML structure, CSS styling, responsive design principles, and hands-on project creation — all live.',
@@ -38,12 +38,26 @@ const FREE_COURSES = [
     outcomes: ['Build your own website', 'Understand HTML & CSS', 'Create responsive layouts', 'Publish a live website']
   },
   {
+    id: 'ui-ux',
+    name: 'UI / UX Design',
+    type: 'FREE',
+    duration: 'Maximum 10 Days',
+    teacher: 'Passionate Educators',
+    teacherInitial: '',
+    teacherWA: '917069878373',
+    desc: 'Design intuitive digital experiences. Learn user interface, user experience principles and prototyping tools.',
+    longDesc: 'Understand how to design beautiful and user-friendly digital products. This course covers UI/UX fundamentals, wireframing, prototyping, design systems, and real-world app design projects — all live.',
+    image: 'https://images.unsplash.com/photo-1586717791821-3f44a563fa4c?w=600&q=80',
+    topics: ['UI/UX Fundamentals', 'User Research', 'Wireframing', 'Prototyping', 'Design Systems', 'Color & Typography', 'Figma Basics', 'Project Work'],
+    outcomes: ['Design user-friendly interfaces', 'Create wireframes & prototypes', 'Understand user psychology', 'Build a UI/UX portfolio piece']
+  },
+  {
     id: 'graphic-design',
     name: 'Graphic Design',
     type: 'FREE',
     duration: 'Maximum 10 Days',
-    teacher: 'Mam',
-    teacherInitial: 'M',
+    teacher: 'Passionate Educators',
+    teacherInitial: '',
     teacherWA: '917069878373',
     desc: 'Unleash your creativity. Learn design fundamentals, color theory, typography, and pro tools.',
     longDesc: 'Discover the world of visual communication. Learn design fundamentals, color psychology, typography, composition, and industry-standard tools to create stunning visual content — all through live sessions.',
@@ -56,8 +70,8 @@ const FREE_COURSES = [
     name: 'Video Editing',
     type: 'FREE',
     duration: 'Maximum 10 Days',
-    teacher: 'Mam',
-    teacherInitial: 'M',
+    teacher: 'Passionate Educators',
+    teacherInitial: '',
     teacherWA: '917069878373',
     desc: 'Transform raw footage into cinematic stories. Cuts, transitions, color grading, and more.',
     longDesc: 'Learn the art of video editing and storytelling. Master cuts, transitions, color grading, audio syncing, and export for any platform — from YouTube to Instagram — all in live classes.',
@@ -73,8 +87,8 @@ const ADVANCED_COURSES = [
     name: 'Advanced Computer & MS Office',
     type: 'ADVANCED',
     duration: 'Maximum 2 Months',
-    teacher: 'Sir',
-    teacherInitial: 'S',
+    teacher: 'Passionate Educators',
+    teacherInitial: '',
     teacherWA: '917069331761',
     price: '₹2499',
     desc: 'Master-level computer skills, advanced MS Office, networking fundamentals and professional workflows.',
@@ -88,8 +102,8 @@ const ADVANCED_COURSES = [
     name: 'Advanced Web Design & Development',
     type: 'ADVANCED',
     duration: 'Maximum 2 Months',
-    teacher: 'Sir',
-    teacherInitial: 'S',
+    teacher: 'Passionate Educators',
+    teacherInitial: '',
     teacherWA: '917069331761',
     price: '₹2499',
     desc: 'Professional-level websites, JavaScript, animations, deployment — real projects from day one.',
@@ -99,12 +113,27 @@ const ADVANCED_COURSES = [
     outcomes: ['Build professional websites', 'Write JavaScript code', 'Deploy live projects', 'Create a portfolio']
   },
   {
+    id: 'adv-uiux',
+    name: 'Advanced UI / UX Design',
+    type: 'ADVANCED',
+    duration: 'Maximum 2 Months',
+    teacher: 'Passionate Educators',
+    teacherInitial: '',
+    teacherWA: '917069878373',
+    price: '₹2499',
+    desc: 'End-to-end product design, advanced prototyping, design systems, research methods and real app projects.',
+    longDesc: 'Master the complete product design process. This advanced course covers user research, information architecture, advanced prototyping, design systems, usability testing, and building a full case study portfolio — all live.',
+    image: 'https://images.unsplash.com/photo-1561070791-2526d30994b5?w=600&q=80',
+    topics: ['Advanced User Research', 'Information Architecture', 'Advanced Prototyping', 'Design Systems', 'Usability Testing', 'Motion in UI', 'Case Study Building', 'Portfolio Project'],
+    outcomes: ['Design complete digital products', 'Conduct user research', 'Build advanced prototypes', 'Create a professional case study']
+  },
+  {
     id: 'adv-graphic',
     name: 'Advanced Graphic Design',
     type: 'ADVANCED',
     duration: 'Maximum 2 Months',
-    teacher: 'Mam',
-    teacherInitial: 'M',
+    teacher: 'Passionate Educators',
+    teacherInitial: '',
     teacherWA: '917069878373',
     price: '₹2499',
     desc: 'Brand identity, advanced typography, professional tools, client-ready portfolio work.',
@@ -118,8 +147,8 @@ const ADVANCED_COURSES = [
     name: 'Advanced AI Tools & Automation',
     type: 'ADVANCED',
     duration: 'Maximum 2 Months',
-    teacher: 'Sir & Mam',
-    teacherInitial: 'S',
+    teacher: 'Passionate Educators',
+    teacherInitial: '',
     teacherWA: '917069331761',
     price: '₹2499',
     desc: 'Master AI tools for productivity, content creation, automation, and career advancement.',
@@ -133,8 +162,8 @@ const ADVANCED_COURSES = [
     name: 'Advanced Video Editing & Production',
     type: 'ADVANCED',
     duration: 'Maximum 2 Months',
-    teacher: 'Mam',
-    teacherInitial: 'M',
+    teacher: 'Passionate Educators',
+    teacherInitial: '',
     teacherWA: '917069878373',
     price: '₹2499',
     desc: 'Cinematic editing, motion graphics, advanced color grading, VFX basics, YouTube/Reels production.',
@@ -332,19 +361,19 @@ function renderFreeCourses() {
             onerror="this.src='https://images.unsplash.com/photo-1509062522246-3755977927d7?w=600&q=80'" />
           <div class="course-img-overlay"></div>
           <div class="course-type-badge free-badge">FREE</div>
-          <div class="course-teacher-bubble">${course.teacherInitial}</div>
+          <div class="entry-fees-badge"><i class="fa-solid fa-bag-shopping"></i> Entry Fees ₹99 Only</div>
         </div>
         <div class="course-card-body">
           <div class="course-name">${course.name}</div>
           <div class="course-duration-tag">⏱ ${course.duration}</div>
           <p class="course-desc">${course.desc}</p>
           <div class="course-teacher-line">
-            <div class="ct-avatar">${course.teacherInitial}</div>
-            <span>By ${course.teacher}</span>
+            <i class="fa-solid fa-chalkboard-user ct-icon"></i>
+            <span>${course.teacher}</span>
           </div>
           <div class="course-price-row">
             <span class="price-strike">₹3000</span>
-            <span class="price-free">FREE</span>
+            <span class="price-free">Entry Fees ₹99 Only</span>
           </div>
           <button class="btn-primary course-btn">View Course →</button>
         </div>
@@ -367,15 +396,14 @@ function renderAdvancedCourses() {
             onerror="this.src='https://images.unsplash.com/photo-1509062522246-3755977927d7?w=600&q=80'" />
           <div class="course-img-overlay"></div>
           <div class="course-type-badge adv-badge">ADVANCED</div>
-          <div class="course-teacher-bubble">${course.teacherInitial}</div>
         </div>
         <div class="course-card-body">
           <div class="course-name">${course.name}</div>
           <div class="course-duration-tag">⏱ ${course.duration}</div>
           <p class="course-desc">${course.desc}</p>
           <div class="course-teacher-line">
-            <div class="ct-avatar">${course.teacherInitial}</div>
-            <span>By ${course.teacher}</span>
+            <i class="fa-solid fa-chalkboard-user ct-icon"></i>
+            <span>${course.teacher}</span>
           </div>
           <div class="course-price-row">
             <span class="price-strike">₹6000</span>
@@ -416,7 +444,7 @@ window.openCourseDetail = function(id, type) {
   ).join('');
 
   const priceHTML = type === 'free'
-    ? `<div class="cdp-price-row"><span class="price-strike">₹3000</span><span class="price-free">FREE</span></div>`
+    ? `<div class="cdp-price-row"><span class="price-strike">₹3000</span><span class="price-free">Entry Fees ₹99 Only</span></div>`
     : `<div class="cdp-price-row"><span class="price-strike">₹6000</span><span class="price-paid">${course.price}</span></div>`;
 
   document.getElementById('cdpInner').innerHTML = `
